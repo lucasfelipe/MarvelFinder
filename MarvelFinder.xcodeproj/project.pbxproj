@@ -17,6 +17,8 @@
 		07611F4C1E1568DB003CCF66 /* CollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07611F4B1E1568DB003CCF66 /* CollectionItem.swift */; };
 		07611F4E1E15C2A7003CCF66 /* MarvelAPIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07611F4D1E15C2A7003CCF66 /* MarvelAPIKeys.plist */; };
 		07611F8A1E15C7AF003CCF66 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07611F891E15C7AF003CCF66 /* LaunchScreen.storyboard */; };
+		07611F8F1E15E3C6003CCF66 /* CharacterSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07611F8E1E15E3C6003CCF66 /* CharacterSearchViewController.swift */; };
+		07611F921E15E40A003CCF66 /* CharacterSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07611F911E15E40A003CCF66 /* CharacterSearchCell.swift */; };
 		079C04541E149D9C000A63E6 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 079C04531E149D9C000A63E6 /* ObjectMapper.framework */; };
 		079C04571E149DC8000A63E6 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079C04561E149DC8000A63E6 /* SearchResult.swift */; };
 		079C04591E14A06F000A63E6 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079C04581E14A06F000A63E6 /* Character.swift */; };
@@ -63,6 +65,8 @@
 		07611F4B1E1568DB003CCF66 /* CollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionItem.swift; sourceTree = "<group>"; };
 		07611F4D1E15C2A7003CCF66 /* MarvelAPIKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MarvelAPIKeys.plist; sourceTree = "<group>"; };
 		07611F891E15C7AF003CCF66 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		07611F8E1E15E3C6003CCF66 /* CharacterSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterSearchViewController.swift; sourceTree = "<group>"; };
+		07611F911E15E40A003CCF66 /* CharacterSearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterSearchCell.swift; sourceTree = "<group>"; };
 		079C04531E149D9C000A63E6 /* ObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectMapper.framework; path = "../../../Library/Developer/Xcode/DerivedData/MarvelFinder-flgzwqwqlryhmofljmcwfygpmklr/Build/Products/Debug-iphonesimulator/ObjectMapper/ObjectMapper.framework"; sourceTree = "<group>"; };
 		079C04561E149DC8000A63E6 /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		079C04581E14A06F000A63E6 /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 			children = (
 				071BC4591E1355570020D074 /* AppDelegate.swift */,
 				07B07E171E153AF80065B2A5 /* CharacterList */,
+				07611F901E15E3EC003CCF66 /* CharacterSearch */,
 				079C04551E149DB2000A63E6 /* Model */,
 				071BC45D1E1355570020D074 /* Main.storyboard */,
 				07611F891E15C7AF003CCF66 /* LaunchScreen.storyboard */,
@@ -166,6 +171,15 @@
 				071BC47B1E1355570020D074 /* Info.plist */,
 			);
 			path = MarvelFinderUITests;
+			sourceTree = "<group>";
+		};
+		07611F901E15E3EC003CCF66 /* CharacterSearch */ = {
+			isa = PBXGroup;
+			children = (
+				07611F8E1E15E3C6003CCF66 /* CharacterSearchViewController.swift */,
+				07611F911E15E40A003CCF66 /* CharacterSearchCell.swift */,
+			);
+			name = CharacterSearch;
 			sourceTree = "<group>";
 		};
 		079C04551E149DB2000A63E6 /* Model */ = {
@@ -500,6 +514,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07611F921E15E40A003CCF66 /* CharacterSearchCell.swift in Sources */,
+				07611F8F1E15E3C6003CCF66 /* CharacterSearchViewController.swift in Sources */,
 				07611F4C1E1568DB003CCF66 /* CollectionItem.swift in Sources */,
 				071BC45C1E1355570020D074 /* CharacterListViewController.swift in Sources */,
 				079C04571E149DC8000A63E6 /* SearchResult.swift in Sources */,

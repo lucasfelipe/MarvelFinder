@@ -1,6 +1,6 @@
 # Marvel Finder
 
-Marvel Finder is a project that has as main objective explore the Marvel API that provides informations about its characters and their comics. It'll explore the information available and try to present them in the best possible way.
+Marvel Finder is a project that has as main objective explore the Marvel Comics API that provides informations about its characters and their comics. It'll explore the information available and try to present them in the best possible way.
 
 ## Showcase
 
@@ -8,7 +8,7 @@ Coming soon...
 
 ## Features and General Characteristics
 
- - List all characters available
+ - List all characters available with an infinte scroll
  - Search character by name
  - Detail a character and its comics
 

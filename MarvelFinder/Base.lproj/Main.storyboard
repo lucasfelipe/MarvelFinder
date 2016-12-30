@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -76,6 +77,9 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="5AN-Or-WeV">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="A6N-Rr-lRo" kind="show" id="LuI-Ti-kRz"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -83,6 +87,62 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ynf-pz-22B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1680.8" y="118.29085457271366"/>
+        </scene>
+        <!--Character Search-->
+        <scene sceneID="cOe-7w-neP">
+            <objects>
+                <tableViewController id="A6N-Rr-lRo" customClass="CharacterSearchViewController" customModule="MarvelFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7S8-9K-DM1">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CharacterSearchCell" rowHeight="88" id="umX-jh-4jJ" customClass="CharacterSearchCell" customModule="MarvelFinder" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="88"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="umX-jh-4jJ" id="bkc-jv-JGQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="87.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="32p-Ms-EHH">
+                                            <rect key="frame" x="8" y="8" width="54" height="71"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="54" id="IaO-7t-i8q"/>
+                                                <constraint firstAttribute="width" secondItem="32p-Ms-EHH" secondAttribute="height" multiplier="54:71" id="aam-fK-gfZ"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="scj-xc-ZJc">
+                                            <rect key="frame" x="70" y="33" width="297" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="32p-Ms-EHH" firstAttribute="top" secondItem="bkc-jv-JGQ" secondAttribute="topMargin" id="9jJ-gq-PEU"/>
+                                        <constraint firstItem="scj-xc-ZJc" firstAttribute="leading" secondItem="32p-Ms-EHH" secondAttribute="trailing" constant="8" symbolic="YES" id="C7x-yW-tOu"/>
+                                        <constraint firstItem="32p-Ms-EHH" firstAttribute="centerY" secondItem="scj-xc-ZJc" secondAttribute="centerY" id="CmZ-uc-DTJ"/>
+                                        <constraint firstItem="scj-xc-ZJc" firstAttribute="trailing" secondItem="bkc-jv-JGQ" secondAttribute="trailingMargin" id="TJJ-Vz-E1b"/>
+                                        <constraint firstItem="32p-Ms-EHH" firstAttribute="leading" secondItem="bkc-jv-JGQ" secondAttribute="leadingMargin" id="ijZ-GK-7SA"/>
+                                        <constraint firstItem="32p-Ms-EHH" firstAttribute="bottom" secondItem="bkc-jv-JGQ" secondAttribute="bottomMargin" id="nX3-nE-aVN"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="characterImage" destination="32p-Ms-EHH" id="bvA-rD-chx"/>
+                                    <outlet property="characterName" destination="scj-xc-ZJc" id="vV1-MV-Zq7"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="A6N-Rr-lRo" id="IVf-Lp-J96"/>
+                            <outlet property="delegate" destination="A6N-Rr-lRo" id="yRx-za-00O"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Character Search" id="9wZ-f9-pAD"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LlU-AW-E1x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2512.8000000000002" y="117.39130434782609"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="T9a-hc-4Fq">
@@ -93,6 +153,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.88627450980392153" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
