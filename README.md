@@ -14,7 +14,7 @@ Coming soon...
 
 ## Project Configuration
 
-In the project folder there is a file MarvelAPIKeys.plit where you have to set your own Public and Private key for the Marvel Comics API, once this is configured the requests will start working.
+In the project folder there is a file MarvelAPIKeys.plist where you have to set your own Public and Private key for the Marvel Comics API, once this is configured the requests will start working.
 
 ## Special Thanks
 
