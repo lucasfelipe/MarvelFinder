@@ -12,6 +12,10 @@ Coming soon...
  - Search character by name
  - Detail a character and its comics
 
+## Project Configuration
+
+In the project folder there is a file MarvelAPIKeys.plit where you have to set your own Public and Private key for the Marvel Comics API, once this is configured the requests will start working.
+
 ## Special Thanks
 
  - [Icons8](https://icons8.com/) for providing free great icons!
