@@ -55,27 +55,30 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // TODO: tratar espaços e outros caracteres
-        
-        let ts = Date().timeIntervalSince1970.description.replacingOccurrences(of: ".", with: "")
-        let hash = MD5("\(ts)\(self.privateKey)\(self.publicKey)")
-        let url = URL(string: "\(baseURL)nameStartsWith=\(searchBar.text!.replacingOccurrences(of: " ", with: "%20"))&orderBy=name&limit=10&offset=\(offset)&ts=\(ts)&apikey=\(self.publicKey)&hash=\(hash.lowercased())")
-        
-        print("\(url!)")
-        
-        DispatchQueue.main.async {
-            self.getDataFromUrl(url: url!) { (data, response, error) in
-                guard let data = data, error == nil else { return }
-                
-                let text = String(data: data, encoding: String.Encoding.utf8)
-                self.result = SearchResult(JSONString: text!)
-                
-                DispatchQueue.main.sync {
-                    self.tableView.reloadData()
+        if !searchBar.text!.containsEmoji {
+            let ts = Date().timeIntervalSince1970.description.replacingOccurrences(of: ".", with: "")
+            let hash = MD5("\(ts)\(self.privateKey)\(self.publicKey)")
+            let url = URL(string: "\(baseURL)nameStartsWith=\(searchBar.text!.replacingOccurrences(of: " ", with: "%20"))&orderBy=name&limit=10&offset=\(offset)&ts=\(ts)&apikey=\(self.publicKey)&hash=\(hash.lowercased())")
+            
+            DispatchQueue.main.async {
+                self.getDataFromUrl(url: url!) { (data, response, error) in
+                    guard let data = data, error == nil else { return }
+                    
+                    let text = String(data: data, encoding: String.Encoding.utf8)
+                    self.result = SearchResult(JSONString: text!)
+                    
+                    DispatchQueue.main.sync {
+                        self.tableView.reloadData()
+                    }
                 }
             }
+        } else {
+            let alert = UIAlertController(title: "Invalid Text", message: "Please do not insert emojis and other symbols.", preferredStyle: UIAlertControllerStyle.alert)
+            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(action)
+            
+            self.present(alert, animated: true, completion: nil)
         }
-        print("\(searchBar.text!)")
     }
     
     func getDataFromUrl(url: URL, completion: @escaping (_ data: Data?, _  response: URLResponse?, _ error: Error?) -> Void) {
@@ -111,6 +114,28 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(self.result.characters?[indexPath.row].name)")
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+}
+
+extension String {
+    
+    var containsEmoji: Bool {
+        for scalar in unicodeScalars {
+            switch scalar.value {
+            case 0x1F600...0x1F64F, // Emoticons
+            0x1F300...0x1F5FF, // Misc Symbols and Pictographs
+            0x1F680...0x1F6FF, // Transport and Map
+            0x2600...0x26FF,   // Misc symbols
+            0x2700...0x27BF,   // Dingbats
+            0xFE00...0xFE0F:   // Variation Selectors
+                return true
+            default:
+                continue
+            }
+        }
+        
+        return false
     }
     
 }
