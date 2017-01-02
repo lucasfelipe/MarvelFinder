@@ -38,7 +38,7 @@ class CharacterListViewController: UITableViewController {
         let url = URL(string: "\(baseURL)\(offset)&ts=\(ts)&apikey=\(self.publicKey)&hash=\(hash.lowercased())")
         
         DispatchQueue.main.async {
-            self.getDataFromUrl(url: url!) { (data, response, error) in
+            URLSession.shared.dataTask(with: url!) { (data, response, error) in
                 guard let data = data, error == nil else { return }
                 
                 let text = String(data: data, encoding: String.Encoding.utf8)
@@ -47,7 +47,7 @@ class CharacterListViewController: UITableViewController {
                 DispatchQueue.main.sync {
                     self.tableView.reloadData()
                 }
-            }
+            }.resume()
         }
     }
     
