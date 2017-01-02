@@ -19,9 +19,14 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <activityIndicatorView key="tableHeaderView" hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" id="bOp-YR-7LR">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="37"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <color key="color" red="0.094117647060000004" green="0.51764705879999995" blue="0.84313725490000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CharacterListCell" rowHeight="185" id="xq5-aY-SZF" customClass="CharacterListCell" customModule="MarvelFinder" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="185"/>
+                                <rect key="frame" x="0.0" y="65" width="375" height="185"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xq5-aY-SZF" id="tSh-WZ-f6U">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
@@ -33,14 +38,14 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Ns-Ea-aLD">
                                             <rect key="frame" x="0.0" y="142" width="375" height="39"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ZU5-sw-9Ae">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ZU5-sw-9Ae">
                                                     <rect key="frame" x="16" y="9" width="343" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.88627450980392153" green="0.21176470588235294" blue="0.21176470588235294" alpha="0.60273972602739723" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" red="0.094117647058823528" green="0.51764705882352935" blue="0.84313725490196079" alpha="0.60273972602739723" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="ZU5-sw-9Ae" firstAttribute="leading" secondItem="3Ns-Ea-aLD" secondAttribute="leading" constant="16" id="1SF-KV-7OQ"/>
                                                 <constraint firstItem="ZU5-sw-9Ae" firstAttribute="top" secondItem="3Ns-Ea-aLD" secondAttribute="top" constant="9" id="Dwv-65-rYA"/>
@@ -75,7 +80,7 @@
                         <barButtonItem key="leftBarButtonItem" image="settings" id="P1i-zs-kEn">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="5AN-Or-WeV">
+                        <barButtonItem key="rightBarButtonItem" image="search" id="5AN-Or-WeV">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="A6N-Rr-lRo" kind="show" id="LuI-Ti-kRz"/>
@@ -83,10 +88,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="loadingInidicator" destination="bOp-YR-7LR" id="khN-So-Wvl"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ynf-pz-22B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1680.8" y="118.29085457271366"/>
+            <point key="canvasLocation" x="1636" y="118"/>
         </scene>
         <!--Character Search-->
         <scene sceneID="cOe-7w-neP">
@@ -150,10 +158,10 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hwO-3o-OIx" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="rM8-fh-jYP">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="rM8-fh-jYP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.88627450980392153" green="0.21176470588235294" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.094117647058823528" green="0.51764705882352935" blue="0.84313725490196079" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
                                 <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -173,6 +181,7 @@
     <resources>
         <image name="placeholder_list" width="375" height="180"/>
         <image name="placeholder_search" width="54" height="71"/>
+        <image name="search" width="25" height="25"/>
         <image name="settings" width="25" height="25"/>
     </resources>
 </document>

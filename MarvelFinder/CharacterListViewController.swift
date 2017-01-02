@@ -20,11 +20,14 @@ class CharacterListViewController: UITableViewController {
     
     var result: SearchResult!
     
+    @IBOutlet weak var loadingInidicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.showsVerticalScrollIndicator = false
-
+        self.loadingInidicator.startAnimating()
+        
         let path = Bundle.main.path(forResource: "MarvelAPIKeys", ofType: "plist")
         if let keys = NSDictionary(contentsOfFile: path!) as? Dictionary<String, String> {
             self.publicKey = keys["PublicKey"]!
@@ -45,6 +48,8 @@ class CharacterListViewController: UITableViewController {
                 self.result = SearchResult(JSONString: text!)
                 
                 DispatchQueue.main.sync {
+                    self.tableView.tableHeaderView = nil
+                    self.loadingInidicator.stopAnimating()
                     self.tableView.reloadData()
                 }
             }.resume()

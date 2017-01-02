@@ -10,11 +10,11 @@
 		071BC45A1E1355570020D074 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071BC4591E1355570020D074 /* AppDelegate.swift */; };
 		071BC45C1E1355570020D074 /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071BC45B1E1355570020D074 /* CharacterListViewController.swift */; };
 		071BC45F1E1355570020D074 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 071BC45D1E1355570020D074 /* Main.storyboard */; };
-		071BC4611E1355570020D074 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 071BC4601E1355570020D074 /* Assets.xcassets */; };
 		071BC46F1E1355570020D074 /* MarvelFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071BC46E1E1355570020D074 /* MarvelFinderTests.swift */; };
 		071BC47A1E1355570020D074 /* MarvelFinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071BC4791E1355570020D074 /* MarvelFinderUITests.swift */; };
 		075F838D1E19E809001B756F /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075F838C1E19E809001B756F /* StringExtension.swift */; };
 		075F838F1E19E815001B756F /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075F838E1E19E815001B756F /* ColorExtension.swift */; };
+		075F83911E1B07C2001B756F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 075F83901E1B07C2001B756F /* Assets.xcassets */; };
 		07611F4A1E1568C7003CCF66 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07611F491E1568C7003CCF66 /* Collection.swift */; };
 		07611F4C1E1568DB003CCF66 /* CollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07611F4B1E1568DB003CCF66 /* CollectionItem.swift */; };
 		07611F4E1E15C2A7003CCF66 /* MarvelAPIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07611F4D1E15C2A7003CCF66 /* MarvelAPIKeys.plist */; };
@@ -55,7 +55,6 @@
 		071BC4591E1355570020D074 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		071BC45B1E1355570020D074 /* CharacterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewController.swift; sourceTree = "<group>"; };
 		071BC45E1E1355570020D074 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		071BC4601E1355570020D074 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		071BC4651E1355570020D074 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		071BC46A1E1355570020D074 /* MarvelFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarvelFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		071BC46E1E1355570020D074 /* MarvelFinderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelFinderTests.swift; sourceTree = "<group>"; };
@@ -65,6 +64,7 @@
 		071BC47B1E1355570020D074 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		075F838C1E19E809001B756F /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		075F838E1E19E815001B756F /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		075F83901E1B07C2001B756F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07611F491E1568C7003CCF66 /* Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		07611F4B1E1568DB003CCF66 /* CollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionItem.swift; sourceTree = "<group>"; };
 		07611F4D1E15C2A7003CCF66 /* MarvelAPIKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MarvelAPIKeys.plist; sourceTree = "<group>"; };
@@ -153,7 +153,7 @@
 				075F838B1E19E7F5001B756F /* Util */,
 				071BC45D1E1355570020D074 /* Main.storyboard */,
 				07611F891E15C7AF003CCF66 /* LaunchScreen.storyboard */,
-				071BC4601E1355570020D074 /* Assets.xcassets */,
+				075F83901E1B07C2001B756F /* Assets.xcassets */,
 				071BC4651E1355570020D074 /* Info.plist */,
 				07611F4D1E15C2A7003CCF66 /* MarvelAPIKeys.plist */,
 			);
@@ -362,9 +362,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				071BC4611E1355570020D074 /* Assets.xcassets in Resources */,
 				07611F8A1E15C7AF003CCF66 /* LaunchScreen.storyboard in Resources */,
 				071BC45F1E1355570020D074 /* Main.storyboard in Resources */,
+				075F83911E1B07C2001B756F /* Assets.xcassets in Resources */,
 				07611F4E1E15C2A7003CCF66 /* MarvelAPIKeys.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
