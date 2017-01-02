@@ -112,7 +112,7 @@ class CharacterListViewController: UITableViewController {
         
         let urlString = "\(self.result.characters![indexPath.row].thumbnail!)/landscape_xlarge.\(self.result.characters![indexPath.row].thumbFormat!)"
         
-        cell.characterImage.af_setImage(withURL: URL(string: urlString)!)
+        cell.characterImage.af_setImage(withURL: URL(string: urlString)!, placeholderImage: UIImage(named: "placeholder_list"), filter: nil, progress: nil, imageTransition: UIImageView.ImageTransition.crossDissolve(0.3), runImageTransitionIfCached: false, completion: nil)
         cell.characterName.text = self.result.characters![indexPath.row].name
         
         return cell
