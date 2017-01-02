@@ -33,13 +33,13 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
         self.definesPresentationContext = true
         self.extendedLayoutIncludesOpaqueBars = true
         
-        UISearchBar.appearance().barTintColor = UIColor.init(red: 226.0/255.0, green: 54.0/255.0, blue: 54.0/255.0, alpha: 1.0)
+        UISearchBar.appearance().barTintColor = UIColor.systemRed
         UISearchBar.appearance().tintColor = UIColor.white
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = UIColor.white
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = UIColor.systemRed
 
         self.searchController.searchBar.placeholder = "Character Name"
         self.searchController.searchBar.layer.borderWidth = 1
-        self.searchController.searchBar.layer.borderColor = UIColor.init(red: 226.0/255.0, green: 54.0/255.0, blue: 54.0/255.0, alpha: 1.0).cgColor
+        self.searchController.searchBar.layer.borderColor = UIColor.systemRed.cgColor
         
         let path = Bundle.main.path(forResource: "MarvelAPIKeys", ofType: "plist")
         if let keys = NSDictionary(contentsOfFile: path!) as? Dictionary<String, String> {
@@ -118,24 +118,3 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     
 }
 
-extension String {
-    
-    var containsEmoji: Bool {
-        for scalar in unicodeScalars {
-            switch scalar.value {
-            case 0x1F600...0x1F64F, // Emoticons
-            0x1F300...0x1F5FF, // Misc Symbols and Pictographs
-            0x1F680...0x1F6FF, // Transport and Map
-            0x2600...0x26FF,   // Misc symbols
-            0x2700...0x27BF,   // Dingbats
-            0xFE00...0xFE0F:   // Variation Selectors
-                return true
-            default:
-                continue
-            }
-        }
-        
-        return false
-    }
-    
-}

@@ -13,6 +13,8 @@
 		071BC4611E1355570020D074 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 071BC4601E1355570020D074 /* Assets.xcassets */; };
 		071BC46F1E1355570020D074 /* MarvelFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071BC46E1E1355570020D074 /* MarvelFinderTests.swift */; };
 		071BC47A1E1355570020D074 /* MarvelFinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071BC4791E1355570020D074 /* MarvelFinderUITests.swift */; };
+		075F838D1E19E809001B756F /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075F838C1E19E809001B756F /* StringExtension.swift */; };
+		075F838F1E19E815001B756F /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075F838E1E19E815001B756F /* ColorExtension.swift */; };
 		07611F4A1E1568C7003CCF66 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07611F491E1568C7003CCF66 /* Collection.swift */; };
 		07611F4C1E1568DB003CCF66 /* CollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07611F4B1E1568DB003CCF66 /* CollectionItem.swift */; };
 		07611F4E1E15C2A7003CCF66 /* MarvelAPIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07611F4D1E15C2A7003CCF66 /* MarvelAPIKeys.plist */; };
@@ -61,6 +63,8 @@
 		071BC4751E1355570020D074 /* MarvelFinderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarvelFinderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		071BC4791E1355570020D074 /* MarvelFinderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelFinderUITests.swift; sourceTree = "<group>"; };
 		071BC47B1E1355570020D074 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		075F838C1E19E809001B756F /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		075F838E1E19E815001B756F /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		07611F491E1568C7003CCF66 /* Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		07611F4B1E1568DB003CCF66 /* CollectionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionItem.swift; sourceTree = "<group>"; };
 		07611F4D1E15C2A7003CCF66 /* MarvelAPIKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MarvelAPIKeys.plist; sourceTree = "<group>"; };
@@ -146,6 +150,7 @@
 				07B07E171E153AF80065B2A5 /* CharacterList */,
 				07611F901E15E3EC003CCF66 /* CharacterSearch */,
 				079C04551E149DB2000A63E6 /* Model */,
+				075F838B1E19E7F5001B756F /* Util */,
 				071BC45D1E1355570020D074 /* Main.storyboard */,
 				07611F891E15C7AF003CCF66 /* LaunchScreen.storyboard */,
 				071BC4601E1355570020D074 /* Assets.xcassets */,
@@ -171,6 +176,15 @@
 				071BC47B1E1355570020D074 /* Info.plist */,
 			);
 			path = MarvelFinderUITests;
+			sourceTree = "<group>";
+		};
+		075F838B1E19E7F5001B756F /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				075F838C1E19E809001B756F /* StringExtension.swift */,
+				075F838E1E19E815001B756F /* ColorExtension.swift */,
+			);
+			name = Util;
 			sourceTree = "<group>";
 		};
 		07611F901E15E3EC003CCF66 /* CharacterSearch */ = {
@@ -516,12 +530,14 @@
 			files = (
 				07611F921E15E40A003CCF66 /* CharacterSearchCell.swift in Sources */,
 				07611F8F1E15E3C6003CCF66 /* CharacterSearchViewController.swift in Sources */,
+				075F838D1E19E809001B756F /* StringExtension.swift in Sources */,
 				07611F4C1E1568DB003CCF66 /* CollectionItem.swift in Sources */,
 				071BC45C1E1355570020D074 /* CharacterListViewController.swift in Sources */,
 				079C04571E149DC8000A63E6 /* SearchResult.swift in Sources */,
 				071BC45A1E1355570020D074 /* AppDelegate.swift in Sources */,
 				07611F4A1E1568C7003CCF66 /* Collection.swift in Sources */,
 				079C04591E14A06F000A63E6 /* Character.swift in Sources */,
+				075F838F1E19E815001B756F /* ColorExtension.swift in Sources */,
 				07B07E161E153AB90065B2A5 /* CharacterListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
