@@ -11,6 +11,122 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--About-->
+        <scene sceneID="xw2-bO-nkF">
+            <objects>
+                <tableViewController id="X4B-y0-lBk" customClass="AboutViewController" customModule="MarvelFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="B3w-Be-DGp">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="Q1R-dw-I8a">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="189"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="marvelfinder" translatesAutoresizingMaskIntoConstraints="NO" id="YxA-C3-jqs">
+                                    <rect key="frame" x="137" y="17" width="100" height="100"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="100" id="tP0-kR-q93"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Marvel Finder © 2017 Itallo Rossi Lucas" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVb-qY-odJ">
+                                    <rect key="frame" x="8" y="125" width="359" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="il0-9R-weU"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Versão 1.0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oL-Ov-xLf">
+                                    <rect key="frame" x="8" y="150" width="359" height="19"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="19" id="eWs-tL-LWk"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="YxA-C3-jqs" firstAttribute="centerX" secondItem="NVb-qY-odJ" secondAttribute="centerX" id="6h0-wr-nKs"/>
+                                <constraint firstItem="NVb-qY-odJ" firstAttribute="top" secondItem="YxA-C3-jqs" secondAttribute="bottom" constant="8" symbolic="YES" id="8AJ-uV-Bt8"/>
+                                <constraint firstAttribute="bottom" secondItem="6oL-Ov-xLf" secondAttribute="bottom" constant="20" id="App-LS-7hD"/>
+                                <constraint firstItem="NVb-qY-odJ" firstAttribute="leading" secondItem="6oL-Ov-xLf" secondAttribute="leading" id="PZj-h2-M8l"/>
+                                <constraint firstItem="NVb-qY-odJ" firstAttribute="trailing" secondItem="Q1R-dw-I8a" secondAttribute="trailingMargin" id="glK-ln-l2C"/>
+                                <constraint firstItem="NVb-qY-odJ" firstAttribute="trailing" secondItem="6oL-Ov-xLf" secondAttribute="trailing" id="jHk-zM-WUO"/>
+                                <constraint firstItem="YxA-C3-jqs" firstAttribute="top" secondItem="Q1R-dw-I8a" secondAttribute="top" constant="17" id="jMt-Ts-aMT"/>
+                                <constraint firstItem="NVb-qY-odJ" firstAttribute="leading" secondItem="Q1R-dw-I8a" secondAttribute="leadingMargin" id="l98-rV-Q1Y"/>
+                                <constraint firstItem="6oL-Ov-xLf" firstAttribute="top" secondItem="NVb-qY-odJ" secondAttribute="bottom" constant="4" id="yQx-nR-jo6"/>
+                            </constraints>
+                        </view>
+                        <sections>
+                            <tableViewSection id="lxC-Us-6WJ">
+                                <cells/>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Developed by" id="awi-RQ-aAt">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="MXl-4R-Bcj">
+                                        <rect key="frame" x="0.0" y="246" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MXl-4R-Bcj" id="an4-u6-yQH">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="linkedin_color" translatesAutoresizingMaskIntoConstraints="NO" id="yLC-Pv-PCw">
+                                                    <rect key="frame" x="16" y="8" width="27" height="27"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="27" id="v12-z0-wos"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Itallo Rossi Lucas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9m3-nd-v6h">
+                                                    <rect key="frame" x="51" y="8" width="316" height="27"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="yLC-Pv-PCw" firstAttribute="bottom" secondItem="9m3-nd-v6h" secondAttribute="bottom" id="8JC-mL-2xF"/>
+                                                <constraint firstItem="9m3-nd-v6h" firstAttribute="trailing" secondItem="an4-u6-yQH" secondAttribute="trailingMargin" id="Dnu-w3-S0j"/>
+                                                <constraint firstItem="9m3-nd-v6h" firstAttribute="leading" secondItem="yLC-Pv-PCw" secondAttribute="trailing" constant="8" symbolic="YES" id="FtE-IX-vrf"/>
+                                                <constraint firstItem="yLC-Pv-PCw" firstAttribute="leading" secondItem="an4-u6-yQH" secondAttribute="leadingMargin" constant="8" id="Ny2-Yw-sPb"/>
+                                                <constraint firstItem="yLC-Pv-PCw" firstAttribute="top" secondItem="an4-u6-yQH" secondAttribute="topMargin" id="RAW-Te-AWp"/>
+                                                <constraint firstItem="yLC-Pv-PCw" firstAttribute="bottom" secondItem="an4-u6-yQH" secondAttribute="bottomMargin" id="dOj-SV-Dbd"/>
+                                                <constraint firstItem="yLC-Pv-PCw" firstAttribute="top" secondItem="9m3-nd-v6h" secondAttribute="top" id="jZJ-nP-zGO"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Acknowledgment" id="y4Y-ri-myi">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="60" id="8IP-uQ-IZs">
+                                        <rect key="frame" x="0.0" y="347" width="375" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8IP-uQ-IZs" id="U7h-NX-wQP">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="X4B-y0-lBk" id="MUx-iM-OgX"/>
+                            <outlet property="delegate" destination="X4B-y0-lBk" id="g08-ZS-QNc"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="About" id="nZ0-mj-0dj"/>
+                    <connections>
+                        <outlet property="appIcon" destination="YxA-C3-jqs" id="Npm-Em-prf"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gL8-Qb-cZk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1636" y="-621.13943028485767"/>
+        </scene>
         <!--Character List-->
         <scene sceneID="Ypg-VB-zeU">
             <objects>
@@ -77,8 +193,11 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Character List" id="Wlw-pM-bF1">
-                        <barButtonItem key="leftBarButtonItem" image="settings" id="P1i-zs-kEn">
+                        <barButtonItem key="leftBarButtonItem" image="info" id="P1i-zs-kEn">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="X4B-y0-lBk" kind="show" id="TJ5-jk-8hD"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="search" id="5AN-Or-WeV">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -158,7 +277,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hwO-3o-OIx" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" translucent="NO" id="rM8-fh-jYP">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="rM8-fh-jYP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.094117647058823528" green="0.51764705882352935" blue="0.84313725490196079" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -179,9 +298,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="info" width="25" height="25"/>
+        <image name="linkedin_color" width="96" height="96"/>
+        <image name="marvelfinder" width="300" height="300"/>
         <image name="placeholder_list" width="375" height="180"/>
         <image name="placeholder_search" width="54" height="71"/>
         <image name="search" width="25" height="25"/>
-        <image name="settings" width="25" height="25"/>
     </resources>
 </document>
