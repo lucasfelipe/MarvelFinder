@@ -21,6 +21,20 @@ class AboutViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 1 {
+            UIApplication.shared.open(NSURL(string:"https://www.linkedin.com/in/itallorossi") as! URL, options: [:], completionHandler: nil)
+        }
     }
     
+    @IBAction func openReviconSite(_ sender: Any) {
+        UIApplication.shared.open(NSURL(string:"http://www.flaticon.com/authors/revicon") as! URL, options: [:], completionHandler: nil)
+    }
+    
+    @IBAction func openFlaticonSite(_ sender: Any) {
+        UIApplication.shared.open(NSURL(string:"http://www.flaticon.com/") as! URL, options: [:], completionHandler: nil)
+    }
+    
+    @IBAction func openIcons8Site(_ sender: Any) {
+        UIApplication.shared.open(NSURL(string:"http://www.icons8.com/") as! URL, options: [:], completionHandler: nil)
+    }
 }
