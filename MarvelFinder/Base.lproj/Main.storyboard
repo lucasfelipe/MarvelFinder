@@ -26,13 +26,13 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="marvelfinder" translatesAutoresizingMaskIntoConstraints="NO" id="YxA-C3-jqs">
-                                    <rect key="frame" x="137" y="17" width="100" height="100"/>
+                                    <rect key="frame" x="137" y="18" width="100" height="100"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="100" id="tP0-kR-q93"/>
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Marvel Finder © 2017 Itallo Rossi Lucas" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVb-qY-odJ">
-                                    <rect key="frame" x="8" y="125" width="359" height="21"/>
+                                    <rect key="frame" x="8" y="126" width="359" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="il0-9R-weU"/>
                                     </constraints>
@@ -41,7 +41,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oL-Ov-xLf">
-                                    <rect key="frame" x="8" y="150" width="359" height="19"/>
+                                    <rect key="frame" x="8" y="151" width="359" height="19"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="19" id="eWs-tL-LWk"/>
                                     </constraints>
@@ -54,11 +54,11 @@
                             <constraints>
                                 <constraint firstItem="YxA-C3-jqs" firstAttribute="centerX" secondItem="NVb-qY-odJ" secondAttribute="centerX" id="6h0-wr-nKs"/>
                                 <constraint firstItem="NVb-qY-odJ" firstAttribute="top" secondItem="YxA-C3-jqs" secondAttribute="bottom" constant="8" symbolic="YES" id="8AJ-uV-Bt8"/>
-                                <constraint firstAttribute="bottom" secondItem="6oL-Ov-xLf" secondAttribute="bottom" constant="20" id="App-LS-7hD"/>
+                                <constraint firstAttribute="bottom" secondItem="6oL-Ov-xLf" secondAttribute="bottom" constant="19" id="App-LS-7hD"/>
                                 <constraint firstItem="NVb-qY-odJ" firstAttribute="leading" secondItem="6oL-Ov-xLf" secondAttribute="leading" id="PZj-h2-M8l"/>
                                 <constraint firstItem="NVb-qY-odJ" firstAttribute="trailing" secondItem="Q1R-dw-I8a" secondAttribute="trailingMargin" id="glK-ln-l2C"/>
                                 <constraint firstItem="NVb-qY-odJ" firstAttribute="trailing" secondItem="6oL-Ov-xLf" secondAttribute="trailing" id="jHk-zM-WUO"/>
-                                <constraint firstItem="YxA-C3-jqs" firstAttribute="top" secondItem="Q1R-dw-I8a" secondAttribute="top" constant="17" id="jMt-Ts-aMT"/>
+                                <constraint firstItem="YxA-C3-jqs" firstAttribute="top" secondItem="Q1R-dw-I8a" secondAttribute="top" constant="18" id="jMt-Ts-aMT"/>
                                 <constraint firstItem="NVb-qY-odJ" firstAttribute="leading" secondItem="Q1R-dw-I8a" secondAttribute="leadingMargin" id="l98-rV-Q1Y"/>
                                 <constraint firstItem="6oL-Ov-xLf" firstAttribute="top" secondItem="NVb-qY-odJ" secondAttribute="bottom" constant="4" id="yQx-nR-jo6"/>
                             </constraints>
