@@ -5,9 +5,9 @@ Marvel Finder is a project that has as main objective explore the Marvel Comics 
 ## Showcase
 
 <p align="center">
-<img src="showcase/character_list.png" align="center" hspace="5" vspace="5">
-<img src="showcase/character_search.png" align="center" hspace="5" vspace="5">
-<img src="showcase/about.png" align="center" hspace="5" vspace="5">
+<img src="showcase/character_list.png" align="center" hspace="5" vspace="5" width="50%" height="50%">
+<img src="showcase/character_search.png" align="center" hspace="5" vspace="5" width="50%" height="50%">
+<img src="showcase/about.png" align="center" hspace="5" vspace="5" width="50%" height="50%">
 </p>
 
 ## Features and General Characteristics
