@@ -249,14 +249,9 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <activityIndicatorView key="tableHeaderView" hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" id="bOp-YR-7LR">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="37"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                            <color key="color" red="0.094117647060000004" green="0.51764705879999995" blue="0.84313725490000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CharacterListCell" rowHeight="185" id="xq5-aY-SZF" customClass="CharacterListCell" customModule="MarvelFinder" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="65" width="375" height="185"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="185"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xq5-aY-SZF" id="tSh-WZ-f6U">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
@@ -321,9 +316,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="loadingInidicator" destination="bOp-YR-7LR" id="khN-So-Wvl"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ynf-pz-22B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -373,6 +365,23 @@
                                     <outlet property="characterImage" destination="32p-Ms-EHH" id="bvA-rD-chx"/>
                                     <outlet property="characterName" destination="scj-xc-ZJc" id="vV1-MV-Zq7"/>
                                 </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CharacterNotFoundCell" textLabel="s3H-p2-b06" rowHeight="88" style="IBUITableViewCellStyleDefault" id="sUG-JU-EI7" customClass="CharacterSearchCell" customModule="MarvelFinder" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="116" width="375" height="88"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sUG-JU-EI7" id="qbE-in-iWP">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="87"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="s3H-p2-b06">
+                                            <rect key="frame" x="15" y="0.0" width="345" height="87"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>

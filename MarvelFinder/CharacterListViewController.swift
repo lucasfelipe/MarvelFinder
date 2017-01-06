@@ -15,18 +15,22 @@ class CharacterListViewController: UITableViewController {
 
     var publicKey   = ""
     var privateKey  = ""
-    let baseURL     = "https://gateway.marvel.com:443/v1/public/characters?orderBy=name&limit=5&offset="
+    let baseURL     = "https://gateway.marvel.com:443/v1/public/characters?orderBy=name&limit=15&offset="
     var offset      = 0
     
     var result: SearchResult!
-    
-    @IBOutlet weak var loadingInidicator: UIActivityIndicatorView!
+    var loadingIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.showsVerticalScrollIndicator = false
-        self.loadingInidicator.startAnimating()
+        self.loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        self.loadingIndicator.color = UIColor.systemRed
+        self.loadingIndicator.center = self.view.center
+        self.loadingIndicator.center.applying(CGAffineTransform(translationX: 0, y: 15))
+        
+        self.view.addSubview(self.loadingIndicator)
+        self.loadingIndicator.startAnimating()
         
         let path = Bundle.main.path(forResource: "MarvelAPIKeys", ofType: "plist")
         if let keys = NSDictionary(contentsOfFile: path!) as? Dictionary<String, String> {
@@ -48,8 +52,7 @@ class CharacterListViewController: UITableViewController {
                 self.result = SearchResult(JSONString: text!)
                 
                 DispatchQueue.main.sync {
-                    self.tableView.tableHeaderView = nil
-                    self.loadingInidicator.stopAnimating()
+                    self.loadingIndicator.stopAnimating()
                     self.tableView.reloadData()
                 }
             }.resume()
@@ -57,7 +60,7 @@ class CharacterListViewController: UITableViewController {
     }
     
     func loadMore(){
-        self.offset += 5
+        self.offset += 15
         
         let ts = Date().timeIntervalSince1970.description.replacingOccurrences(of: ".", with: "")
         let hash = MD5("\(ts)\(self.privateKey)\(self.publicKey)")

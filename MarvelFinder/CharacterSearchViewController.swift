@@ -20,9 +20,14 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     var offset      = 0
     
     var result: SearchResult!
+    var searchingIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.searchingIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        self.searchingIndicator.color = UIColor.systemRed
+        self.searchingIndicator.center = self.tableView.center
         
         self.searchController.searchBar.delegate = self
         self.searchController.dimsBackgroundDuringPresentation = false
@@ -55,6 +60,12 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.result = nil
+        self.tableView.reloadData()
+        
+        self.tableView.addSubview(self.searchingIndicator)
+        self.searchingIndicator.startAnimating()
+        
         if !searchBar.text!.containsEmoji {
             let ts = Date().timeIntervalSince1970.description.replacingOccurrences(of: ".", with: "")
             let hash = MD5("\(ts)\(self.privateKey)\(self.publicKey)")
@@ -68,6 +79,7 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
                     self.result = SearchResult(JSONString: text!)
                     
                     DispatchQueue.main.sync {
+                        self.searchingIndicator.stopAnimating()
                         self.tableView.reloadData()
                     }
                 }
@@ -90,6 +102,10 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.result != nil {
+            if self.result.count == 0 {
+                return 1
+            }
+            
             return (self.result.characters?.count)!
         }
         
@@ -97,6 +113,14 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if self.result.count == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterNotFoundCell", for: indexPath)
+            
+            cell.textLabel?.text = "No results found"
+            
+            return cell
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterSearchCell", for: indexPath) as! CharacterSearchCell
         
         let urlString = "\(self.result.characters![indexPath.row].thumbnail!)/portrait_small.\(self.result.characters![indexPath.row].thumbFormat!)"
@@ -108,6 +132,12 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if self.result != nil {
+            if self.result.count == 0 {
+                return 44
+            }
+        }
+        
         return 88
     }
     
