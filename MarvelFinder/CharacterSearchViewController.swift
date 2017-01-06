@@ -22,13 +22,14 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     var result: SearchResult!
     var searchingIndicator: UIActivityIndicatorView!
     
+    var searchText = ""
     var loadMoreFlag = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.searchingIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
-        self.searchingIndicator.color = UIColor.systemRed
+        self.searchingIndicator.color = UIColor.system
         self.searchingIndicator.center = self.tableView.center
         
         self.searchController.searchBar.delegate = self
@@ -40,13 +41,13 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
         self.definesPresentationContext = true
         self.extendedLayoutIncludesOpaqueBars = true
         
-        UISearchBar.appearance().barTintColor = UIColor.systemRed
+        UISearchBar.appearance().barTintColor = UIColor.system
         UISearchBar.appearance().tintColor = UIColor.white
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = UIColor.systemRed
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = UIColor.system
 
         self.searchController.searchBar.placeholder = "Character Name"
         self.searchController.searchBar.layer.borderWidth = 1
-        self.searchController.searchBar.layer.borderColor = UIColor.systemRed.cgColor
+        self.searchController.searchBar.layer.borderColor = UIColor.system.cgColor
         
         let path = Bundle.main.path(forResource: "MarvelAPIKeys", ofType: "plist")
         if let keys = NSDictionary(contentsOfFile: path!) as? Dictionary<String, String> {
@@ -61,6 +62,7 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
         return .lightContent
     }
     
+    // MARK: Search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.result = nil
         self.tableView.reloadData()
@@ -69,9 +71,12 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
         self.searchingIndicator.startAnimating()
         
         if !searchBar.text!.containsEmoji {
+            self.offset = 0
+            self.searchText = searchBar.text!.replacingOccurrences(of: " ", with: "%20")
+            
             let ts = Date().timeIntervalSince1970.description.replacingOccurrences(of: ".", with: "")
             let hash = MD5("\(ts)\(self.privateKey)\(self.publicKey)")
-            let url = URL(string: "\(baseURL)nameStartsWith=\(searchBar.text!.replacingOccurrences(of: " ", with: "%20"))&orderBy=name&limit=10&offset=\(offset)&ts=\(ts)&apikey=\(self.publicKey)&hash=\(hash.lowercased())")
+            let url = URL(string: "\(baseURL)nameStartsWith=\(self.searchText)&orderBy=name&limit=10&offset=\(offset)&ts=\(ts)&apikey=\(self.publicKey)&hash=\(hash.lowercased())")
             
             DispatchQueue.main.async {
                 self.getDataFromUrl(url: url!) { (data, response, error) in
@@ -82,6 +87,7 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
                     
                     DispatchQueue.main.sync {
                         self.searchingIndicator.stopAnimating()
+                        self.loadMoreFlag = true
                         self.tableView.reloadData()
                     }
                 }
@@ -95,25 +101,7 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
         }
     }
     
-    func getDataFromUrl(url: URL, completion: @escaping (_ data: Data?, _  response: URLResponse?, _ error: Error?) -> Void) {
-        URLSession.shared.dataTask(with: url) {
-            (data, response, error) in
-            completion(data, response, error)
-            }.resume()
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.result != nil {
-            if self.result.count == 0 {
-                return 1
-            }
-            
-            return (self.result.characters?.count)!
-        }
-        
-        return 0
-    }
-    
+    // MARK: TableView
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if self.result.count == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterNotFoundCell", for: indexPath)
@@ -143,11 +131,24 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
         return 88
     }
     
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.result != nil {
+            if self.result.count == 0 {
+                return 1
+            }
+            
+            return (self.result.characters?.count)!
+        }
+        
+        return 0
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(self.result.characters?[indexPath.row].name)")
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    // MARK: Load more
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
         let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
@@ -157,35 +158,46 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     }
     
     func loadMore(){
-//        if self.loadMoreFlag == true {
-//            print("[LOAD MORE]")
-//            
-//            self.loadMoreFlag = false
-//            self.offset += 15
-//            
-//            let ts = Date().timeIntervalSince1970.description.replacingOccurrences(of: ".", with: "")
-//            let hash = MD5("\(ts)\(self.privateKey)\(self.publicKey)")
-//            let url = URL(string: "\(baseURL)\(offset)&ts=\(ts)&apikey=\(self.publicKey)&hash=\(hash.lowercased())")
-//            
-//            DispatchQueue.main.async {
-//                self.getDataFromUrl(url: url!) { (data, response, error) in
-//                    guard let data = data, error == nil else { return }
-//                    
-//                    let text = String(data: data, encoding: String.Encoding.utf8)
-//                    let moreResult = SearchResult(JSONString: text!)
-//                    
-//                    for character in (moreResult?.characters)! {
-//                        self.result.characters?.append(character)
-//                    }
-//                    
-//                    DispatchQueue.main.sync {
-//                        self.tableView.reloadData()
-//                        self.loadMoreFlag = true
-//                    }
-//                }
-//            }
-//        }
-        print("[LOAD MORE]")
+        if self.loadMoreFlag == true {
+            self.loadMoreFlag = false
+            self.offset += 10
+            
+            if self.result != nil {
+                if self.offset >= self.result.total! {
+                    return
+                }
+            }
+            
+            let ts = Date().timeIntervalSince1970.description.replacingOccurrences(of: ".", with: "")
+            let hash = MD5("\(ts)\(self.privateKey)\(self.publicKey)")
+            let url = URL(string: "\(baseURL)nameStartsWith=\(self.searchText)&orderBy=name&limit=10&offset=\(offset)&ts=\(ts)&apikey=\(self.publicKey)&hash=\(hash.lowercased())")
+            
+            DispatchQueue.main.async {
+                self.getDataFromUrl(url: url!) { (data, response, error) in
+                    guard let data = data, error == nil else { return }
+                    
+                    let text = String(data: data, encoding: String.Encoding.utf8)
+                    let moreResult = SearchResult(JSONString: text!)
+                    
+                    for character in (moreResult?.characters)! {
+                        self.result.characters?.append(character)
+                    }
+                    
+                    DispatchQueue.main.sync {
+                        self.loadMoreFlag = true
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: Util
+    func getDataFromUrl(url: URL, completion: @escaping (_ data: Data?, _  response: URLResponse?, _ error: Error?) -> Void) {
+        URLSession.shared.dataTask(with: url) {
+            (data, response, error) in
+            completion(data, response, error)
+            }.resume()
     }
     
 }
