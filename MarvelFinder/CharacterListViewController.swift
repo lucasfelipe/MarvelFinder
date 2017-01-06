@@ -21,13 +21,15 @@ class CharacterListViewController: UITableViewController {
     var result: SearchResult!
     var loadingIndicator: UIActivityIndicatorView!
     
+    var loadMoreFlag = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         self.loadingIndicator.color = UIColor.systemRed
         self.loadingIndicator.center = self.view.center
-        self.loadingIndicator.center.applying(CGAffineTransform(translationX: 0, y: 15))
+        self.loadingIndicator.center.applying(CGAffineTransform(translationX: 0, y: self.view.bounds.minY))
         
         self.view.addSubview(self.loadingIndicator)
         self.loadingIndicator.startAnimating()
@@ -54,34 +56,42 @@ class CharacterListViewController: UITableViewController {
                 DispatchQueue.main.sync {
                     self.loadingIndicator.stopAnimating()
                     self.tableView.reloadData()
+                    self.loadMoreFlag = true
                 }
             }.resume()
         }
     }
     
     func loadMore(){
-        self.offset += 15
-        
-        let ts = Date().timeIntervalSince1970.description.replacingOccurrences(of: ".", with: "")
-        let hash = MD5("\(ts)\(self.privateKey)\(self.publicKey)")
-        let url = URL(string: "\(baseURL)\(offset)&ts=\(ts)&apikey=\(self.publicKey)&hash=\(hash.lowercased())")
-        
-        DispatchQueue.main.async {
-            self.getDataFromUrl(url: url!) { (data, response, error) in
-                guard let data = data, error == nil else { return }
-                
-                let text = String(data: data, encoding: String.Encoding.utf8)
-                let moreResult = SearchResult(JSONString: text!)
-                
-                for character in (moreResult?.characters)! {
-                    self.result.characters?.append(character)
-                }
-                
-                DispatchQueue.main.sync {
-                    self.tableView.reloadData()
+        if self.loadMoreFlag == true {
+            print("[LOAD MORE]")
+            
+            self.loadMoreFlag = false
+            self.offset += 15
+            
+            let ts = Date().timeIntervalSince1970.description.replacingOccurrences(of: ".", with: "")
+            let hash = MD5("\(ts)\(self.privateKey)\(self.publicKey)")
+            let url = URL(string: "\(baseURL)\(offset)&ts=\(ts)&apikey=\(self.publicKey)&hash=\(hash.lowercased())")
+            
+            DispatchQueue.main.async {
+                self.getDataFromUrl(url: url!) { (data, response, error) in
+                    guard let data = data, error == nil else { return }
+                    
+                    let text = String(data: data, encoding: String.Encoding.utf8)
+                    let moreResult = SearchResult(JSONString: text!)
+                    
+                    for character in (moreResult?.characters)! {
+                        self.result.characters?.append(character)
+                    }
+                    
+                    DispatchQueue.main.sync {
+                        self.tableView.reloadData()
+                        self.loadMoreFlag = true
+                    }
                 }
             }
         }
+
     }
     
     func getDataFromUrl(url: URL, completion: @escaping (_ data: Data?, _  response: URLResponse?, _ error: Error?) -> Void) {
@@ -90,7 +100,7 @@ class CharacterListViewController: UITableViewController {
             completion(data, response, error)
         }.resume()
     }
-
+    
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
         let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height

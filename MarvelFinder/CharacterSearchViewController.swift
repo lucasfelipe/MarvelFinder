@@ -22,6 +22,8 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     var result: SearchResult!
     var searchingIndicator: UIActivityIndicatorView!
     
+    var loadMoreFlag = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -144,6 +146,46 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(self.result.characters?[indexPath.row].name)")
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y
+        let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        if (maxOffset - offset) <= 55 {
+            self.loadMore()
+        }
+    }
+    
+    func loadMore(){
+//        if self.loadMoreFlag == true {
+//            print("[LOAD MORE]")
+//            
+//            self.loadMoreFlag = false
+//            self.offset += 15
+//            
+//            let ts = Date().timeIntervalSince1970.description.replacingOccurrences(of: ".", with: "")
+//            let hash = MD5("\(ts)\(self.privateKey)\(self.publicKey)")
+//            let url = URL(string: "\(baseURL)\(offset)&ts=\(ts)&apikey=\(self.publicKey)&hash=\(hash.lowercased())")
+//            
+//            DispatchQueue.main.async {
+//                self.getDataFromUrl(url: url!) { (data, response, error) in
+//                    guard let data = data, error == nil else { return }
+//                    
+//                    let text = String(data: data, encoding: String.Encoding.utf8)
+//                    let moreResult = SearchResult(JSONString: text!)
+//                    
+//                    for character in (moreResult?.characters)! {
+//                        self.result.characters?.append(character)
+//                    }
+//                    
+//                    DispatchQueue.main.sync {
+//                        self.tableView.reloadData()
+//                        self.loadMoreFlag = true
+//                    }
+//                }
+//            }
+//        }
+        print("[LOAD MORE]")
     }
     
 }
