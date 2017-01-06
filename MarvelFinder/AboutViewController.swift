@@ -37,4 +37,8 @@ class AboutViewController: UITableViewController {
     @IBAction func openIcons8Site(_ sender: Any) {
         UIApplication.shared.open(NSURL(string:"http://www.icons8.com/") as! URL, options: [:], completionHandler: nil)
     }
+    
+    @IBAction func openMarvelSite(_ sender: Any) {
+        UIApplication.shared.open(NSURL(string:"http://www.marvel.com/") as! URL, options: [:], completionHandler: nil)
+    }
 }
