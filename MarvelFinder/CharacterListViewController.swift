@@ -19,6 +19,7 @@ class CharacterListViewController: UITableViewController {
     var offset      = 0
     
     var result: SearchResult!
+    @IBOutlet weak var topView: UIView!
     var loadingIndicator: UIActivityIndicatorView!
     
     var loadMoreFlag = false
@@ -28,10 +29,9 @@ class CharacterListViewController: UITableViewController {
         
         self.loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         self.loadingIndicator.color = UIColor.system
-        self.loadingIndicator.center = self.view.center
-        self.loadingIndicator.center.applying(CGAffineTransform(translationX: 0, y: self.view.bounds.minY))
+        self.loadingIndicator.center = self.topView.center
         
-        self.view.addSubview(self.loadingIndicator)
+        self.topView.addSubview(self.loadingIndicator)
         self.loadingIndicator.startAnimating()
         
         let path = Bundle.main.path(forResource: "MarvelAPIKeys", ofType: "plist")
@@ -55,6 +55,7 @@ class CharacterListViewController: UITableViewController {
                 
                 DispatchQueue.main.sync {
                     self.loadingIndicator.stopAnimating()
+                    self.tableView.tableHeaderView = nil
                     self.tableView.reloadData()
                     self.loadMoreFlag = true
                 }
@@ -107,14 +108,14 @@ class CharacterListViewController: UITableViewController {
     
     func loadMore(){
         if self.loadMoreFlag == true {
-            print("[LOAD MORE]")
-            
             self.loadMoreFlag = false
             self.offset += 15
             
-//            if self.result != nil {
-//                if self.offset > self.result.count
-//            }
+            if self.result != nil {
+                if self.offset >= self.result.total! {
+                    return
+                }
+            }
             
             let ts = Date().timeIntervalSince1970.description.replacingOccurrences(of: ".", with: "")
             let hash = MD5("\(ts)\(self.privateKey)\(self.publicKey)")
