@@ -12,13 +12,12 @@ import ObjectMapper
 import AlamofireImage
 
 class CharacterListViewController: UITableViewController {
-
-    var publicKey   = ""
-    var privateKey  = ""
-    let baseURL     = "https://gateway.marvel.com:443/v1/public/characters?orderBy=name&limit=15&offset="
-    var offset      = 0
     
+    let requests = MarvelRequests()
+    
+    var offset = 0
     var result: SearchResult!
+    
     @IBOutlet weak var topView: UIView!
     var loadingIndicator: UIActivityIndicatorView!
     
@@ -34,31 +33,14 @@ class CharacterListViewController: UITableViewController {
         self.topView.addSubview(self.loadingIndicator)
         self.loadingIndicator.startAnimating()
         
-        let path = Bundle.main.path(forResource: "MarvelAPIKeys", ofType: "plist")
-        if let keys = NSDictionary(contentsOfFile: path!) as? Dictionary<String, String> {
-            self.publicKey = keys["PublicKey"]!
-            self.privateKey = keys["PrivateKey"]!
-        } else {
-            return
-        }
-        
-        let ts = Date().timeIntervalSince1970.description.replacingOccurrences(of: ".", with: "")
-        let hash = MD5("\(ts)\(self.privateKey)\(self.publicKey)")
-        let url = URL(string: "\(baseURL)\(offset)&ts=\(ts)&apikey=\(self.publicKey)&hash=\(hash.lowercased())")
-        
-        DispatchQueue.main.async {
-            self.getDataFromUrl(url: url!) { (data, response, error) in
-                guard let data = data, error == nil else { return }
-                
-                let text = String(data: data, encoding: String.Encoding.utf8)
-                self.result = SearchResult(JSONString: text!)
-                
-                DispatchQueue.main.sync {
-                    self.loadingIndicator.stopAnimating()
-                    self.tableView.tableHeaderView = nil
-                    self.tableView.reloadData()
-                    self.loadMoreFlag = true
-                }
+        self.requests.getCharacterList(offset: self.offset) { (result) in
+            self.result = result
+            
+            DispatchQueue.main.sync {
+                self.loadingIndicator.stopAnimating()
+                self.tableView.tableHeaderView = nil
+                self.tableView.reloadData()
+                self.loadMoreFlag = true
             }
         }
     }
@@ -69,7 +51,7 @@ class CharacterListViewController: UITableViewController {
         
         let urlString = "\(self.result.characters![indexPath.row].thumbnail!)/landscape_xlarge.\(self.result.characters![indexPath.row].thumbFormat!)"
         
-        cell.characterImage.af_setImage(withURL: URL(string: urlString)!, placeholderImage: UIImage(named: "placeholder_list"), filter: nil, progress: nil, imageTransition: UIImageView.ImageTransition.crossDissolve(0.3), runImageTransitionIfCached: false, completion: nil)
+        cell.characterImage.af_setImage(withURL: URL(string: urlString)!, placeholderImage: UIImage(named: "placeholder_list"), imageTransition: UIImageView.ImageTransition.crossDissolve(0.3))
         cell.characterName.text = self.result.characters![indexPath.row].name
         
         return cell
@@ -101,6 +83,7 @@ class CharacterListViewController: UITableViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
         let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        
         if (maxOffset - offset) <= 55 {
             self.loadMore()
         }
@@ -117,37 +100,20 @@ class CharacterListViewController: UITableViewController {
                 }
             }
             
-            let ts = Date().timeIntervalSince1970.description.replacingOccurrences(of: ".", with: "")
-            let hash = MD5("\(ts)\(self.privateKey)\(self.publicKey)")
-            let url = URL(string: "\(baseURL)\(offset)&ts=\(ts)&apikey=\(self.publicKey)&hash=\(hash.lowercased())")
-            
-            DispatchQueue.main.async {
-                self.getDataFromUrl(url: url!) { (data, response, error) in
-                    guard let data = data, error == nil else { return }
-                    
-                    let text = String(data: data, encoding: String.Encoding.utf8)
-                    let moreResult = SearchResult(JSONString: text!)
-                    
-                    for character in (moreResult?.characters)! {
-                        self.result.characters?.append(character)
-                    }
-                    
-                    DispatchQueue.main.sync {
-                        self.tableView.reloadData()
-                        self.loadMoreFlag = true
-                    }
+            self.requests.getCharacterList(offset: self.offset) { (result) in
+                for character in (result.characters)! {
+                    self.result.characters?.append(character)
+                }
+                
+                DispatchQueue.main.sync {
+                    self.loadingIndicator.stopAnimating()
+                    self.tableView.tableHeaderView = nil
+                    self.tableView.reloadData()
+                    self.loadMoreFlag = true
                 }
             }
         }
         
-    }
-    
-    // MARK: Util
-    func getDataFromUrl(url: URL, completion: @escaping (_ data: Data?, _  response: URLResponse?, _ error: Error?) -> Void) {
-        URLSession.shared.dataTask(with: url) {
-            (data, response, error) in
-            completion(data, response, error)
-            }.resume()
     }
     
 }

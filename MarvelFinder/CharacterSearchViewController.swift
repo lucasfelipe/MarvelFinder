@@ -12,6 +12,8 @@ import ObjectMapper
 
 class CharacterSearchViewController: UITableViewController, UISearchBarDelegate {
     
+    let requests = MarvelRequests()
+    
     let searchController = UISearchController(searchResultsController: nil)
  
     var publicKey   = ""
@@ -48,14 +50,6 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
         self.searchController.searchBar.placeholder = "Character Name"
         self.searchController.searchBar.layer.borderWidth = 1
         self.searchController.searchBar.layer.borderColor = UIColor.system.cgColor
-        
-        let path = Bundle.main.path(forResource: "MarvelAPIKeys", ofType: "plist")
-        if let keys = NSDictionary(contentsOfFile: path!) as? Dictionary<String, String> {
-            self.publicKey = keys["PublicKey"]!
-            self.privateKey = keys["PrivateKey"]!
-        } else {
-            return
-        }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -74,24 +68,15 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
             self.offset = 0
             self.searchText = searchBar.text!.replacingOccurrences(of: " ", with: "%20")
             
-            let ts = Date().timeIntervalSince1970.description.replacingOccurrences(of: ".", with: "")
-            let hash = MD5("\(ts)\(self.privateKey)\(self.publicKey)")
-            let url = URL(string: "\(baseURL)nameStartsWith=\(self.searchText)&orderBy=name&limit=10&offset=\(offset)&ts=\(ts)&apikey=\(self.publicKey)&hash=\(hash.lowercased())")
-            
-            DispatchQueue.main.async {
-                self.getDataFromUrl(url: url!) { (data, response, error) in
-                    guard let data = data, error == nil else { return }
-                    
-                    let text = String(data: data, encoding: String.Encoding.utf8)
-                    self.result = SearchResult(JSONString: text!)
-                    
-                    DispatchQueue.main.sync {
-                        self.searchingIndicator.stopAnimating()
-                        self.loadMoreFlag = true
-                        self.tableView.reloadData()
-                    }
+            self.requests.searchCharacter(name: self.searchText, offset: self.offset, completion: { (result) in
+                self.result = result
+                
+                DispatchQueue.main.sync {
+                    self.searchingIndicator.stopAnimating()
+                    self.loadMoreFlag = true
+                    self.tableView.reloadData()
                 }
-            }
+            })
         } else {
             let alert = UIAlertController(title: "Invalid Text", message: "Please do not insert emojis and other symbols.", preferredStyle: UIAlertControllerStyle.alert)
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -115,7 +100,7 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
         
         let urlString = "\(self.result.characters![indexPath.row].thumbnail!)/portrait_small.\(self.result.characters![indexPath.row].thumbFormat!)"
         
-        cell.characterImage.af_setImage(withURL: URL(string: urlString)!, placeholderImage: UIImage(named: "placeholder_search"), filter: nil, progress: nil, imageTransition: UIImageView.ImageTransition.crossDissolve(0.3), runImageTransitionIfCached: false, completion: nil)
+        cell.characterImage.af_setImage(withURL: URL(string: urlString)!, placeholderImage: UIImage(named: "placeholder_search"), imageTransition: UIImageView.ImageTransition.crossDissolve(0.3))
         cell.characterName.text = self.result.characters![indexPath.row].name
         
         return cell
@@ -152,6 +137,7 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
         let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        
         if (maxOffset - offset) <= 55 {
             self.loadMore()
         }
@@ -168,37 +154,17 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
                 }
             }
             
-            let ts = Date().timeIntervalSince1970.description.replacingOccurrences(of: ".", with: "")
-            let hash = MD5("\(ts)\(self.privateKey)\(self.publicKey)")
-            let url = URL(string: "\(baseURL)nameStartsWith=\(self.searchText)&orderBy=name&limit=10&offset=\(offset)&ts=\(ts)&apikey=\(self.publicKey)&hash=\(hash.lowercased())")
-            
-            DispatchQueue.main.async {
-                self.getDataFromUrl(url: url!) { (data, response, error) in
-                    guard let data = data, error == nil else { return }
-                    
-                    let text = String(data: data, encoding: String.Encoding.utf8)
-                    let moreResult = SearchResult(JSONString: text!)
-                    
-                    for character in (moreResult?.characters)! {
-                        self.result.characters?.append(character)
-                    }
-                    
-                    DispatchQueue.main.sync {
-                        self.loadMoreFlag = true
-                        self.tableView.reloadData()
-                    }
+            self.requests.searchCharacter(name: self.searchText, offset: self.offset, completion: { (result) in
+                for character in (result.characters)! {
+                    self.result.characters?.append(character)
                 }
-            }
+                
+                DispatchQueue.main.sync {
+                    self.loadMoreFlag = true
+                    self.tableView.reloadData()
+                }
+            })
         }
     }
     
-    // MARK: Util
-    func getDataFromUrl(url: URL, completion: @escaping (_ data: Data?, _  response: URLResponse?, _ error: Error?) -> Void) {
-        URLSession.shared.dataTask(with: url) {
-            (data, response, error) in
-            completion(data, response, error)
-            }.resume()
-    }
-    
 }
-
