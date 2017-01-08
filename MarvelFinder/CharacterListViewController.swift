@@ -28,19 +28,10 @@ class CharacterListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
-        self.loadingIndicator.color = UIColor.system
-        self.loadingIndicator.center = self.topView.center
-        
-        self.topView.addSubview(self.loadingIndicator)
-        self.loadingIndicator.startAnimating()
-        
         self.requests.getCharacterList(offset: self.offset) { (result) in
             self.result = result
             
             DispatchQueue.main.sync {
-                self.loadingIndicator.stopAnimating()
-                self.tableView.tableHeaderView = nil
                 self.tableView.reloadData()
                 self.loadMoreFlag = true
             }
@@ -104,6 +95,7 @@ class CharacterListViewController: UITableViewController {
             
             if self.result != nil {
                 if self.offset >= self.result.total! {
+                    self.tableView.tableFooterView = nil
                     return
                 }
             }
@@ -114,8 +106,6 @@ class CharacterListViewController: UITableViewController {
                 }
                 
                 DispatchQueue.main.sync {
-                    self.loadingIndicator.stopAnimating()
-                    self.tableView.tableHeaderView = nil
                     self.tableView.reloadData()
                     self.loadMoreFlag = true
                 }

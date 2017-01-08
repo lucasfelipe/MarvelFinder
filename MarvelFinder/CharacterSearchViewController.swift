@@ -22,6 +22,7 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     var result: SearchResult!
     
     var loadMoreFlag = false
+    var newSearchFlag = false
     
     var selectedCharacter: Character!
     
@@ -56,6 +57,8 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     
     // MARK: Search
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.newSearchFlag = true
+        
         self.result = nil
         self.tableView.reloadData()
         
@@ -72,6 +75,7 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
                 DispatchQueue.main.sync {
                     self.searchingIndicator.stopAnimating()
                     self.loadMoreFlag = true
+                    self.newSearchFlag = false
                     self.tableView.reloadData()
                 }
             })
@@ -90,6 +94,14 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
             let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterNotFoundCell", for: indexPath)
             
             cell.textLabel?.text = "No results found"
+            
+            return cell
+        }
+        
+        if indexPath.row == self.result.characters!.count {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterSearchLoadMoreCell", for: indexPath) as! CharacterSearchLoadMoreCell
+            
+            cell.loadMoreIndicator.startAnimating()
             
             return cell
         }
@@ -120,7 +132,11 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
                 return 1
             }
             
-            return (self.result.characters?.count)!
+            if self.result.characters!.count >= self.result.total! {
+                return (self.result.characters?.count)!
+            }
+            
+            return (self.result.characters?.count)! + 1
         }
         
         return 0
@@ -153,8 +169,9 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
         }
     }
     
+    // TODO: load more trava, qnd faz pesquisa faz load sem ser até o fim e já procura outra palavra
     func loadMore(){
-        if self.loadMoreFlag == true {
+        if self.loadMoreFlag == true && self.newSearchFlag == false {
             self.loadMoreFlag = false
             self.offset += 10
             

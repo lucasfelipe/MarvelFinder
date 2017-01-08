@@ -412,14 +412,24 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="uDs-Gc-F9B">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="q1l-O9-EsE">
+                            <rect key="frame" x="0.0" y="213" width="375" height="66"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="dSq-uD-Yr6">
+                                    <rect key="frame" x="169" y="15" width="37" height="37"/>
+                                    <color key="color" red="0.094117647060000004" green="0.51764705879999995" blue="0.84313725490000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </activityIndicatorView>
+                            </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="dSq-uD-Yr6" firstAttribute="centerX" secondItem="q1l-O9-EsE" secondAttribute="centerX" id="qQg-Cg-oFt"/>
+                                <constraint firstItem="dSq-uD-Yr6" firstAttribute="centerY" secondItem="q1l-O9-EsE" secondAttribute="centerY" id="yK8-dY-VUN"/>
+                            </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CharacterListCell" rowHeight="185" id="xq5-aY-SZF" customClass="CharacterListCell" customModule="MarvelFinder" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="148" width="375" height="185"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="185"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xq5-aY-SZF" id="tSh-WZ-f6U">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
@@ -485,11 +495,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="topView" destination="uDs-Gc-F9B" id="eey-zG-O9k"/>
                         <segue destination="gJE-Ef-6DP" kind="show" identifier="DetailFromList" id="QiK-Sl-h5m"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ynf-pz-22B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="Qhq-Uv-PVC">
+                    <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
             </objects>
             <point key="canvasLocation" x="1636" y="117.39130434782609"/>
         </scene>
@@ -748,6 +761,27 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CharacterSearchLoadMoreCell" rowHeight="88" id="4QL-Cs-eHE" customClass="CharacterSearchLoadMoreCell" customModule="MarvelFinder" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="204" width="375" height="88"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4QL-Cs-eHE" id="FTr-6A-Bc9">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="87"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="UPf-nT-P8Z">
+                                            <rect key="frame" x="169" y="25" width="37" height="37"/>
+                                            <color key="color" red="0.094117647060000004" green="0.51764705879999995" blue="0.84313725490000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </activityIndicatorView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="UPf-nT-P8Z" firstAttribute="centerY" secondItem="FTr-6A-Bc9" secondAttribute="centerY" id="OFs-cQ-KmE"/>
+                                        <constraint firstItem="UPf-nT-P8Z" firstAttribute="centerX" secondItem="FTr-6A-Bc9" secondAttribute="centerX" id="b89-ZH-X4v"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="loadMoreIndicator" destination="UPf-nT-P8Z" id="ktC-t8-S55"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="A6N-Rr-lRo" id="IVf-Lp-J96"/>
@@ -797,6 +831,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <image name="search" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QiK-Sl-h5m"/>
+        <segue reference="j9y-IN-wPb"/>
     </inferredMetricsTieBreakers>
 </document>
