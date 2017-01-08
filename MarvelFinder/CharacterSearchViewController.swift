@@ -131,6 +131,18 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(self.result.characters?[indexPath.row].name)")
         tableView.deselectRow(at: indexPath, animated: true)
+        self.performSegue(withIdentifier: "DetailFromSearch", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "DetailFromList" {
+            let characterDetailVC = segue.destination as! CharacterDetailViewController
+            characterDetailVC.characterName = "passou!"
+        }
+        
+        let backItem = UIBarButtonItem()
+        backItem.title = "Back"
+        navigationItem.backBarButtonItem = backItem
     }
     
     // MARK: Load more

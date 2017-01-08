@@ -71,9 +71,15 @@ class CharacterListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(self.result.characters![indexPath.row].name)")
+        self.performSegue(withIdentifier: "DetailFromList", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "DetailFromList" {
+            let characterDetailVC = segue.destination as! CharacterDetailViewController
+            characterDetailVC.characterName = "passou!"
+        }
+        
         let backItem = UIBarButtonItem()
         backItem.title = "Back"
         navigationItem.backBarButtonItem = backItem

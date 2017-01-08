@@ -16,7 +16,7 @@ class Character: Mappable {
     var thumbnail: String?
     var thumbFormat: String?
     var comics: [Collection]?
-    var seires: [Collection]?
+    var series: [Collection]?
     var stories: [Collection]?
     var events: [Collection]?
     
