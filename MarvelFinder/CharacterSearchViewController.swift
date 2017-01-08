@@ -15,17 +15,15 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     let requests = MarvelRequests()
     
     let searchController = UISearchController(searchResultsController: nil)
- 
-    var publicKey   = ""
-    var privateKey  = ""
-    let baseURL     = "https://gateway.marvel.com:443/v1/public/characters?"
-    var offset      = 0
-    
-    var result: SearchResult!
+    var searchText = ""
     var searchingIndicator: UIActivityIndicatorView!
     
-    var searchText = ""
+    var offset = 0
+    var result: SearchResult!
+    
     var loadMoreFlag = false
+    
+    var selectedCharacter: Character!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,15 +127,15 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(self.result.characters?[indexPath.row].name)")
+        self.selectedCharacter = self.result.characters![indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
         self.performSegue(withIdentifier: "DetailFromSearch", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "DetailFromList" {
+        if segue.identifier == "DetailFromSearch" {
             let characterDetailVC = segue.destination as! CharacterDetailViewController
-            characterDetailVC.characterName = "passou!"
+            characterDetailVC.character = self.selectedCharacter
         }
         
         let backItem = UIBarButtonItem()

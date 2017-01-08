@@ -23,6 +23,8 @@ class CharacterListViewController: UITableViewController {
     
     var loadMoreFlag = false
     
+    var selectedCharacter: Character!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -70,14 +72,14 @@ class CharacterListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(self.result.characters![indexPath.row].name)")
+        self.selectedCharacter = self.result.characters![indexPath.row]
         self.performSegue(withIdentifier: "DetailFromList", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "DetailFromList" {
             let characterDetailVC = segue.destination as! CharacterDetailViewController
-            characterDetailVC.characterName = "passou!"
+            characterDetailVC.character = self.selectedCharacter
         }
         
         let backItem = UIBarButtonItem()
