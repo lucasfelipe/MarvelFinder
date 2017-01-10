@@ -64,6 +64,24 @@ class CharacterDetailViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        if indexPath.section == 5 {
+            switch indexPath.row {
+            case 0:
+                self.openRelatedLink(linkType: "detail")
+                break
+            case 1:
+                self.openRelatedLink(linkType: "wiki")
+                break
+            case 2:
+                self.openRelatedLink(linkType: "comiclink")
+                break
+            default:
+                print("ERRO")
+            }
+        }
+    }
+    
     func openRelatedLink(linkType: String) {
         if let relatedLink = urls[linkType] {
             UIApplication.shared.open(NSURL(string: relatedLink) as! URL, options: [:], completionHandler: nil)

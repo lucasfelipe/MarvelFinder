@@ -67,7 +67,7 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
         
         if !searchBar.text!.containsEmoji {
             self.offset = 0
-            self.searchText = searchBar.text!.replacingOccurrences(of: " ", with: "%20")
+            self.searchText = searchBar.text!.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed)!
             
             self.requests.searchCharacter(name: self.searchText, offset: self.offset, completion: { (result) in
                 self.result = result
