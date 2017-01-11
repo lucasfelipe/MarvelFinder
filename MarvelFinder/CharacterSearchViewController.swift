@@ -108,7 +108,7 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CharacterSearchCell", for: indexPath) as! CharacterSearchCell
         
-        let urlString = "\(self.result.characters![indexPath.row].thumbnail!)/portrait_small.\(self.result.characters![indexPath.row].thumbFormat!)"
+        let urlString = "\(self.result.characters![indexPath.row].thumbnail!)/portrait_medium.\(self.result.characters![indexPath.row].thumbFormat!)"
         
         cell.characterImage.af_setImage(withURL: URL(string: urlString)!, placeholderImage: UIImage(named: "placeholder_search"), imageTransition: UIImageView.ImageTransition.crossDissolve(0.3))
         cell.characterName.text = self.result.characters![indexPath.row].name

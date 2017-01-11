@@ -7,15 +7,19 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class CharacterDetailViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
+    let requests = MarvelRequests()
+    
     var character: Character!
     @IBOutlet weak var characterImage: UIImageView!
     @IBOutlet weak var characterName: UILabel!
     @IBOutlet weak var characterDescription: UITextView!
     
     @IBOutlet weak var comicsCollectionView: UICollectionView!
+    var comicsCollection: Collection!
     @IBOutlet weak var seriesCollectionView: UICollectionView!
     @IBOutlet weak var storiesCollectionView: UICollectionView!
     @IBOutlet weak var eventsCollectionView: UICollectionView!
@@ -43,26 +47,54 @@ class CharacterDetailViewController: UITableViewController, UICollectionViewDele
         self.comicsCollectionView.delegate = self
         self.comicsCollectionView.dataSource = self
         
-        self.seriesCollectionView.delegate = self
-        self.seriesCollectionView.dataSource = self
+//        self.seriesCollectionView.delegate = self
+//        self.seriesCollectionView.dataSource = self
+//        
+//        self.storiesCollectionView.delegate = self
+//        self.storiesCollectionView.dataSource = self
+//        
+//        self.eventsCollectionView.delegate = self
+//        self.eventsCollectionView.dataSource = self
         
-        self.storiesCollectionView.delegate = self
-        self.storiesCollectionView.dataSource = self
-        
-        self.eventsCollectionView.delegate = self
-        self.eventsCollectionView.dataSource = self
+        self.requests.getCollectionList(characterId: self.character.id!, collectionType: "comics", offset: 0, completion: { (result) in
+            self.comicsCollection = result
+            
+            DispatchQueue.main.sync {
+                self.comicsCollectionView.reloadData()
+            }
+        })
     }
     
     // MARK: Collection View
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return self.numberOfItems(collectionView: collectionView)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = self.comicsCollectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! CharacterDetailCollectionCell
+        if self.comicsCollection != nil {
+            if collectionView == self.comicsCollectionView {
+                if self.comicsCollection.count! == 0 {
+                    let cell = self.comicsCollectionView.dequeueReusableCell(withReuseIdentifier: "CollectionMessageCell", for: indexPath) as! CharacterDetailCollectionMessageCell
+                    
+                    cell.messageLabel.text = "No records found."
+                    
+                    return cell
+                }
+                
+                let cell = self.comicsCollectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! CharacterDetailCollectionCell
+                
+                let urlString = "\(self.comicsCollection.items![indexPath.row].thumbnail!)/portrait_medium.\(self.comicsCollection.items![indexPath.row].thumbFormat!)"
+                
+                cell.collectionImage.af_setImage(withURL: URL(string: urlString)!, placeholderImage: UIImage(named: "placeholder_search"), imageTransition: UIImageView.ImageTransition.crossDissolve(0.3))
+                cell.collectionName.text = self.comicsCollection.items![indexPath.row].name
+                
+                return cell
+            }
+        }
         
-        cell.collectionImage.image = UIImage(named: "placeholder_search")
-        cell.collectionName.text = "Collection \(indexPath.row)"
+        let cell = self.comicsCollectionView.dequeueReusableCell(withReuseIdentifier: "CollectionLoadCell", for: indexPath) as! CharacterDetailCollectionLoadCell
+        
+        cell.loadingIndicator.startAnimating()
         
         return cell
     }
@@ -121,6 +153,24 @@ class CharacterDetailViewController: UITableViewController, UICollectionViewDele
         } else {
             UIApplication.shared.open(NSURL(string:"http://www.marvel.com/") as! URL, options: [:], completionHandler: nil)
         }
+    }
+    
+    func numberOfItems(collectionView: UICollectionView) -> Int {
+        var numberOfItems = 1
+        
+        switch collectionView {
+        case self.comicsCollectionView:
+            if self.comicsCollection != nil {
+                if self.comicsCollection.count! != 0 {
+                    numberOfItems = self.comicsCollection.count!
+                }
+            }
+            break
+        default:
+            break
+        }
+        
+        return numberOfItems
     }
     
 }

@@ -91,7 +91,7 @@ class CharacterListViewController: UITableViewController {
     func loadMore(){
         if self.loadMoreFlag == true {
             self.loadMoreFlag = false
-            self.offset += 15
+            self.offset += 20
             
             if self.result != nil {
                 if self.offset >= self.result.total! {

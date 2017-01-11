@@ -10,19 +10,21 @@ import ObjectMapper
 
 class Collection: Mappable {
     
-    var collectionPath: String?
-    var available: Int?
-    var returned: Int?
+    var offset: Int?
+    var limit: Int?
+    var total: Int?
+    var count: Int?
     var items: [CollectionItem]?
     
     required init?(map: Map) {
     }
     
     func mapping(map: Map) {
-        collectionPath  <- map["collectionURI"]
-        available       <- map["available"]
-        returned        <- map["returned"]
-        items           <- map["items"]
+        offset  <- map["data.offset"]
+        limit   <- map["data.limit"]
+        total   <- map["data.total"]
+        count   <- map["data.count"]
+        items   <- map["data.results"]
     }
     
 }

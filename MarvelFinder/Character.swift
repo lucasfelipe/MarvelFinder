@@ -17,11 +17,6 @@ class Character: Mappable {
     var thumbFormat: String?
     var urls: [RelatedLinkItem]?
     
-    var comics: [Collection]?
-    var series: [Collection]?
-    var stories: [Collection]?
-    var events: [Collection]?
-    
     required init?(map: Map) {
     }
     
@@ -31,7 +26,6 @@ class Character: Mappable {
         description <- map["description"]
         thumbnail   <- map["thumbnail.path"]
         thumbFormat <- map["thumbnail.extension"]
-        comics      <- map["comics"]
         urls        <- map["urls"]
     }
     

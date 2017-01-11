@@ -10,15 +10,17 @@ import ObjectMapper
 
 class CollectionItem: Mappable {
     
-    var resourceName: String?
-    var resourceURL: String?
+    var name: String?
+    var thumbnail: String?
+    var thumbFormat: String?
     
     required init?(map: Map) {
     }
     
     func mapping(map: Map) {
-        resourceName <- map["name"]
-        resourceURL  <- map["resourceURI"]
+        name        <- map["title"]
+        thumbnail   <- map["thumbnail.path"]
+        thumbFormat <- map["thumbnail.extension"]
     }
     
 }

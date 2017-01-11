@@ -30,7 +30,7 @@ class MarvelRequests {
     func getCharacterList(offset: Int, completion: @escaping (_ result: SearchResult) -> Void) {
         let ts = Date().timeIntervalSince1970.description.replacingOccurrences(of: ".", with: "")
         let hash = MD5("\(ts)\(self.privateKey)\(self.publicKey)")
-        let url = URL(string: "\(self.baseURL)characters?orderBy=name&limit=15&offset=\(offset)&ts=\(ts)&apikey=\(self.publicKey)&hash=\(hash.lowercased())")
+        let url = URL(string: "\(self.baseURL)characters?orderBy=name&limit=20&offset=\(offset)&ts=\(ts)&apikey=\(self.publicKey)&hash=\(hash.lowercased())")
         
         DispatchQueue.main.async {
             self.getDataFromUrl(url: url!) { (data, response, error) in
@@ -55,6 +55,23 @@ class MarvelRequests {
                 
                 let text = String(data: data, encoding: String.Encoding.utf8)
                 let result = SearchResult(JSONString: text!)
+                
+                completion(result!)
+            }
+        }
+    }
+    
+    func getCollectionList(characterId: Int, collectionType: String, offset: Int, completion: @escaping (_ result: Collection) -> Void) {
+        let ts = Date().timeIntervalSince1970.description.replacingOccurrences(of: ".", with: "")
+        let hash = MD5("\(ts)\(self.privateKey)\(self.publicKey)")
+        let url = URL(string: "\(self.baseURL)characters/\(characterId)/\(collectionType)?limit=20&offset=\(offset)&ts=\(ts)&apikey=\(self.publicKey)&hash=\(hash.lowercased())")
+        
+        DispatchQueue.main.async {
+            self.getDataFromUrl(url: url!) { (data, response, error) in
+                guard let data = data, error == nil else { return }
+                
+                let text = String(data: data, encoding: String.Encoding.utf8)
+                let result = Collection(JSONString: text!)
                 
                 completion(result!)
             }
