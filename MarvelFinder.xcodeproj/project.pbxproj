@@ -29,6 +29,7 @@
 		07B3B8C91E21F6FF002B55E1 /* RelatedLinkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3B8C81E21F6FF002B55E1 /* RelatedLinkItem.swift */; };
 		07B3B8CB1E2213F5002B55E1 /* CharacterSearchLoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3B8CA1E2213F5002B55E1 /* CharacterSearchLoadMoreCell.swift */; };
 		07C733B11E146DF9001EFB81 /* SwiftHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C733B01E146DF9001EFB81 /* SwiftHash.framework */; };
+		07D3C2551E25B6B200DCC7DB /* CharacterDetailCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3C2541E25B6B200DCC7DB /* CharacterDetailCollectionCell.swift */; };
 		07FCACFB1E14A6290037C717 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07FCACF91E14A6290037C717 /* Alamofire.framework */; };
 		07FCACFC1E14A6290037C717 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07FCACFA1E14A6290037C717 /* AlamofireImage.framework */; };
 		07FE422A1E1F367A00A64BD2 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FE42291E1F367A00A64BD2 /* LicenseViewController.swift */; };
@@ -86,6 +87,7 @@
 		07B3B8C81E21F6FF002B55E1 /* RelatedLinkItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelatedLinkItem.swift; sourceTree = "<group>"; };
 		07B3B8CA1E2213F5002B55E1 /* CharacterSearchLoadMoreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterSearchLoadMoreCell.swift; sourceTree = "<group>"; };
 		07C733B01E146DF9001EFB81 /* SwiftHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftHash.framework; path = "../../../Library/Developer/Xcode/DerivedData/MarvelFinder-flgzwqwqlryhmofljmcwfygpmklr/Build/Products/Debug-iphonesimulator/SwiftHash/SwiftHash.framework"; sourceTree = "<group>"; };
+		07D3C2541E25B6B200DCC7DB /* CharacterDetailCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterDetailCollectionCell.swift; sourceTree = "<group>"; };
 		07FCACF91E14A6290037C717 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/MarvelFinder-flgzwqwqlryhmofljmcwfygpmklr/Build/Products/Debug-iphonesimulator/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		07FCACFA1E14A6290037C717 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = "../../../Library/Developer/Xcode/DerivedData/MarvelFinder-flgzwqwqlryhmofljmcwfygpmklr/Build/Products/Debug-iphonesimulator/AlamofireImage/AlamofireImage.framework"; sourceTree = "<group>"; };
 		07FE42291E1F367A00A64BD2 /* LicenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
@@ -220,9 +222,9 @@
 			children = (
 				079C04561E149DC8000A63E6 /* SearchResult.swift */,
 				079C04581E14A06F000A63E6 /* Character.swift */,
+				07B3B8C81E21F6FF002B55E1 /* RelatedLinkItem.swift */,
 				07611F491E1568C7003CCF66 /* Collection.swift */,
 				07611F4B1E1568DB003CCF66 /* CollectionItem.swift */,
-				07B3B8C81E21F6FF002B55E1 /* RelatedLinkItem.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -257,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				07FE42501E21E5F200A64BD2 /* CharacterDetailViewController.swift */,
+				07D3C2541E25B6B200DCC7DB /* CharacterDetailCollectionCell.swift */,
 			);
 			name = CharacterDetail;
 			sourceTree = "<group>";
@@ -576,6 +579,7 @@
 			files = (
 				07611F921E15E40A003CCF66 /* CharacterSearchCell.swift in Sources */,
 				07611F8F1E15E3C6003CCF66 /* CharacterSearchViewController.swift in Sources */,
+				07D3C2551E25B6B200DCC7DB /* CharacterDetailCollectionCell.swift in Sources */,
 				075F838D1E19E809001B756F /* StringExtension.swift in Sources */,
 				07611F4C1E1568DB003CCF66 /* CollectionItem.swift in Sources */,
 				07FE42491E2073CD00A64BD2 /* MarvelRequests.swift in Sources */,

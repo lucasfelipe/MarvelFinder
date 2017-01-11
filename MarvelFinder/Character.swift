@@ -15,11 +15,12 @@ class Character: Mappable {
     var description: String?
     var thumbnail: String?
     var thumbFormat: String?
+    var urls: [RelatedLinkItem]?
+    
     var comics: [Collection]?
     var series: [Collection]?
     var stories: [Collection]?
     var events: [Collection]?
-    var urls: [RelatedLinkItem]?
     
     required init?(map: Map) {
     }

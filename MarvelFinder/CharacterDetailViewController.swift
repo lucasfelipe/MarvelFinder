@@ -8,12 +8,17 @@
 
 import UIKit
 
-class CharacterDetailViewController: UITableViewController {
+class CharacterDetailViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     var character: Character!
     @IBOutlet weak var characterImage: UIImageView!
     @IBOutlet weak var characterName: UILabel!
     @IBOutlet weak var characterDescription: UITextView!
+    
+    @IBOutlet weak var comicsCollectionView: UICollectionView!
+    @IBOutlet weak var seriesCollectionView: UICollectionView!
+    @IBOutlet weak var storiesCollectionView: UICollectionView!
+    @IBOutlet weak var eventsCollectionView: UICollectionView!
     
     var urls = Dictionary<String, String>()
     
@@ -34,8 +39,35 @@ class CharacterDetailViewController: UITableViewController {
         for url in self.character!.urls! {
             urls[url.linkType!] = url.linkURL!
         }
+        
+        self.comicsCollectionView.delegate = self
+        self.comicsCollectionView.dataSource = self
+        
+        self.seriesCollectionView.delegate = self
+        self.seriesCollectionView.dataSource = self
+        
+        self.storiesCollectionView.delegate = self
+        self.storiesCollectionView.dataSource = self
+        
+        self.eventsCollectionView.delegate = self
+        self.eventsCollectionView.dataSource = self
     }
     
+    // MARK: Collection View
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = self.comicsCollectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! CharacterDetailCollectionCell
+        
+        cell.collectionImage.image = UIImage(named: "placeholder_search")
+        cell.collectionName.text = "Collection \(indexPath.row)"
+        
+        return cell
+    }
+    
+    // MARK: Table View
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             return self.characterDescription.contentSize.height+15
@@ -82,6 +114,7 @@ class CharacterDetailViewController: UITableViewController {
         }
     }
     
+    // MAKR: Util
     func openRelatedLink(linkType: String) {
         if let relatedLink = urls[linkType] {
             UIApplication.shared.open(NSURL(string: relatedLink) as! URL, options: [:], completionHandler: nil)
