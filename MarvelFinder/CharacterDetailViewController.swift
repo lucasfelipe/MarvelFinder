@@ -20,6 +20,8 @@ class CharacterDetailViewController: UITableViewController, UICollectionViewDele
     
     @IBOutlet weak var comicsCollectionView: UICollectionView!
     var comicsCollection: Collection!
+    var comicsOffset   = 0
+    var comicsLoadMore = false
     @IBOutlet weak var seriesCollectionView: UICollectionView!
     @IBOutlet weak var storiesCollectionView: UICollectionView!
     @IBOutlet weak var eventsCollectionView: UICollectionView!
@@ -56,10 +58,11 @@ class CharacterDetailViewController: UITableViewController, UICollectionViewDele
 //        self.eventsCollectionView.delegate = self
 //        self.eventsCollectionView.dataSource = self
         
-        self.requests.getCollectionList(characterId: self.character.id!, collectionType: "comics", offset: 0, completion: { (result) in
+        self.requests.getCollectionList(characterId: self.character.id!, collectionType: "comics", offset: self.comicsOffset, completion: { (result) in
             self.comicsCollection = result
             
             DispatchQueue.main.sync {
+                self.comicsLoadMore = true
                 self.comicsCollectionView.reloadData()
             }
         })
@@ -71,9 +74,18 @@ class CharacterDetailViewController: UITableViewController, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         if self.comicsCollection != nil {
             if collectionView == self.comicsCollectionView {
-                if self.comicsCollection.count! == 0 {
+                if self.comicsCollection.items!.count == indexPath.row {
+                    let cell = self.comicsCollectionView.dequeueReusableCell(withReuseIdentifier: "CollectionLoadCell", for: indexPath) as! CharacterDetailCollectionLoadCell
+                    
+                    cell.loadingIndicator.startAnimating()
+                    
+                    return cell
+                }
+                
+                if self.comicsCollection.items!.count == 0 {
                     let cell = self.comicsCollectionView.dequeueReusableCell(withReuseIdentifier: "CollectionMessageCell", for: indexPath) as! CharacterDetailCollectionMessageCell
                     
                     cell.messageLabel.text = "No records found."
@@ -146,7 +158,47 @@ class CharacterDetailViewController: UITableViewController, UICollectionViewDele
         }
     }
     
-    // MAKR: Util
+    // MARK: Load More
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.x
+        let maxOffset = scrollView.contentSize.width - scrollView.frame.size.width
+        
+        if (maxOffset - offset) <= 55 {
+            switch scrollView {
+            case self.comicsCollectionView:
+                self.loadMoreComics()
+                break
+            default:
+                break
+            }
+        }
+    }
+    
+    func loadMoreComics() {
+        if self.comicsLoadMore == true {
+            self.comicsLoadMore = false
+            self.comicsOffset += 20
+            
+            if self.comicsCollection != nil {
+                if self.comicsOffset >= self.comicsCollection.total! {
+                    return
+                }
+            }
+            
+            self.requests.getCollectionList(characterId: self.character.id!, collectionType: "comics", offset: self.comicsOffset, completion: { (result) in
+                for item in result.items! {
+                    self.comicsCollection.items!.append(item)
+                }
+                
+                DispatchQueue.main.sync {
+                    self.comicsLoadMore = true
+                    self.comicsCollectionView.reloadData()
+                }
+            })
+        }
+    }
+    
+    // MARK: Util
     func openRelatedLink(linkType: String) {
         if let relatedLink = urls[linkType] {
             UIApplication.shared.open(NSURL(string: relatedLink) as! URL, options: [:], completionHandler: nil)
@@ -162,7 +214,11 @@ class CharacterDetailViewController: UITableViewController, UICollectionViewDele
         case self.comicsCollectionView:
             if self.comicsCollection != nil {
                 if self.comicsCollection.count! != 0 {
-                    numberOfItems = self.comicsCollection.count!
+                    numberOfItems = self.comicsCollection.items!.count
+                    
+                    if !(self.comicsCollection.items!.count >= self.comicsCollection.total!) {
+                        numberOfItems += 1
+                    }
                 }
             }
             break

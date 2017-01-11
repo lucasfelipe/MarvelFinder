@@ -169,7 +169,6 @@ class CharacterSearchViewController: UITableViewController, UISearchBarDelegate 
         }
     }
     
-    // TODO: load more trava, qnd faz pesquisa faz load sem ser até o fim e já procura outra palavra
     func loadMore(){
         if self.loadMoreFlag == true && self.newSearchFlag == false {
             self.loadMoreFlag = false
