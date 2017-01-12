@@ -8,7 +8,7 @@ target 'MarvelFinder' do
   # Pods for MarvelFinder
   pod 'SwiftHash', git: 'https://github.com/onmyway133/SwiftHash'
   pod 'ObjectMapper', '~> 2.2'
-  pod 'AlamofireImage', '~> 3.1'
+  pod 'AlamofireImage', '~> 3.2'
 
   target 'MarvelFinderTests' do
     inherit! :search_paths

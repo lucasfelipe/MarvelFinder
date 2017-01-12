@@ -6,7 +6,7 @@ PODS:
   - SwiftHash (1.0.0)
 
 DEPENDENCIES:
-  - AlamofireImage (~> 3.1)
+  - AlamofireImage (~> 3.2)
   - ObjectMapper (~> 2.2)
   - SwiftHash (from `https://github.com/onmyway133/SwiftHash`)
 
@@ -25,6 +25,6 @@ SPEC CHECKSUMS:
   ObjectMapper: 9e385c2295bcc4e16eabbcfc85db801442bba545
   SwiftHash: 76ae5587517f145389b6a0380c8874bd6b1d8dbf
 
-PODFILE CHECKSUM: 03656eb5cbe2032f03d42ddc1ab409bc1b6a9dec
+PODFILE CHECKSUM: d69c8282aa3d3c477d7a05fffcd4379bfd048937
 
 COCOAPODS: 1.2.0.beta.3

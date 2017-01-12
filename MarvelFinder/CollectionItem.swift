@@ -8,11 +8,15 @@
 
 import ObjectMapper
 
-class CollectionItem: Mappable {
+class CollectionItem: Mappable, CustomStringConvertible {
     
     var name: String?
     var thumbnail: String?
     var thumbFormat: String?
+    
+    var description: String {
+        return self.name!
+    }
     
     required init?(map: Map) {
     }

@@ -9,7 +9,7 @@
 import UIKit
 import AlamofireImage
 
-class CharacterDetailViewController: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class CharacterDetailViewController: UITableViewController {
 
     let requests = MarvelRequests()
     
@@ -25,6 +25,13 @@ class CharacterDetailViewController: UITableViewController, UICollectionViewDele
     @IBOutlet weak var seriesCollectionView: UICollectionView!
     @IBOutlet weak var storiesCollectionView: UICollectionView!
     @IBOutlet weak var eventsCollectionView: UICollectionView!
+    
+    private lazy var dataSource : DataSource<FlatArrayDataManager<CollectionItem>, CharacterCellPopulator> = {
+        let sections = self.comicsCollection!.items!
+        let dataManager = FlatArrayDataManager<CollectionItem>(data: sections)
+        
+        return DataSource(dataManager: dataManager, cellPopulator: CharacterCellPopulator())
+    }()
     
     var urls = Dictionary<String, String>()
     
@@ -46,8 +53,9 @@ class CharacterDetailViewController: UITableViewController, UICollectionViewDele
             urls[url.linkType!] = url.linkURL!
         }
         
-        self.comicsCollectionView.delegate = self
-        self.comicsCollectionView.dataSource = self
+
+//        self.comicsCollectionView.delegate = self.collectionCharactersController
+//        self.comicsCollectionView.dataSource = self.collectionCharactersController
         
 //        self.seriesCollectionView.delegate = self
 //        self.seriesCollectionView.dataSource = self
@@ -61,55 +69,15 @@ class CharacterDetailViewController: UITableViewController, UICollectionViewDele
         self.requests.getCollectionList(characterId: self.character.id!, collectionType: "comics", offset: self.comicsOffset, completion: { (result) in
             self.comicsCollection = result
             
+            
             DispatchQueue.main.sync {
                 self.comicsLoadMore = true
-                self.comicsCollectionView.reloadData()
+                self.comicsCollectionView.dataSource = self.dataSource
+//                self.comicsCollectionView.reloadData()
             }
         })
     }
     
-    // MARK: Collection View
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.numberOfItems(collectionView: collectionView)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        if self.comicsCollection != nil {
-            if collectionView == self.comicsCollectionView {
-                if self.comicsCollection.items!.count == indexPath.row {
-                    let cell = self.comicsCollectionView.dequeueReusableCell(withReuseIdentifier: "CollectionLoadCell", for: indexPath) as! CharacterDetailCollectionLoadCell
-                    
-                    cell.loadingIndicator.startAnimating()
-                    
-                    return cell
-                }
-                
-                if self.comicsCollection.items!.count == 0 {
-                    let cell = self.comicsCollectionView.dequeueReusableCell(withReuseIdentifier: "CollectionMessageCell", for: indexPath) as! CharacterDetailCollectionMessageCell
-                    
-                    cell.messageLabel.text = "No records found."
-                    
-                    return cell
-                }
-                
-                let cell = self.comicsCollectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! CharacterDetailCollectionCell
-                
-                let urlString = "\(self.comicsCollection.items![indexPath.row].thumbnail!)/portrait_medium.\(self.comicsCollection.items![indexPath.row].thumbFormat!)"
-                
-                cell.collectionImage.af_setImage(withURL: URL(string: urlString)!, placeholderImage: UIImage(named: "placeholder_search"), imageTransition: UIImageView.ImageTransition.crossDissolve(0.3))
-                cell.collectionName.text = self.comicsCollection.items![indexPath.row].name
-                
-                return cell
-            }
-        }
-        
-        let cell = self.comicsCollectionView.dequeueReusableCell(withReuseIdentifier: "CollectionLoadCell", for: indexPath) as! CharacterDetailCollectionLoadCell
-        
-        cell.loadingIndicator.startAnimating()
-        
-        return cell
-    }
     
     // MARK: Table View
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -207,26 +175,26 @@ class CharacterDetailViewController: UITableViewController, UICollectionViewDele
         }
     }
     
-    func numberOfItems(collectionView: UICollectionView) -> Int {
-        var numberOfItems = 1
-        
-        switch collectionView {
-        case self.comicsCollectionView:
-            if self.comicsCollection != nil {
-                if self.comicsCollection.count! != 0 {
-                    numberOfItems = self.comicsCollection.items!.count
-                    
-                    if !(self.comicsCollection.items!.count >= self.comicsCollection.total!) {
-                        numberOfItems += 1
-                    }
-                }
-            }
-            break
-        default:
-            break
-        }
-        
-        return numberOfItems
-    }
+//    func numberOfItems(collectionView: UICollectionView) -> Int {
+//        var numberOfItems = 1
+//        
+//        switch collectionView {
+//        case self.comicsCollectionView:
+//            if self.comicsCollection != nil {
+//                if self.comicsCollection.count! != 0 {
+//                    numberOfItems = self.comicsCollection.items!.count
+//                    
+//                    if !(self.comicsCollection.items!.count >= self.comicsCollection.total!) {
+//                        numberOfItems += 1
+//                    }
+//                }
+//            }
+//            break
+//        default:
+//            break
+//        }
+//        
+//        return numberOfItems
+//    }
     
 }
