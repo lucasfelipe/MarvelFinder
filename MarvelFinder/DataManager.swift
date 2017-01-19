@@ -11,8 +11,7 @@ import ObjectMapper
 
 protocol DataManager {
     
-    associatedtype DataType : CustomStringConvertible
-    typealias Element = DataType
+    typealias DataType = CollectionItem
     
     func itemCount() -> Int
     func itemCount(section: Int) -> Int?

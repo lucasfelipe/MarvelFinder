@@ -53,27 +53,12 @@ class CharacterDetailViewController: UITableViewController {
             urls[url.linkType!] = url.linkURL!
         }
         
-
-//        self.comicsCollectionView.delegate = self.collectionCharactersController
-//        self.comicsCollectionView.dataSource = self.collectionCharactersController
-        
-//        self.seriesCollectionView.delegate = self
-//        self.seriesCollectionView.dataSource = self
-//        
-//        self.storiesCollectionView.delegate = self
-//        self.storiesCollectionView.dataSource = self
-//        
-//        self.eventsCollectionView.delegate = self
-//        self.eventsCollectionView.dataSource = self
-        
         self.requests.getCollectionList(characterId: self.character.id!, collectionType: "comics", offset: self.comicsOffset, completion: { (result) in
-            self.comicsCollection = result
-            
-            
             DispatchQueue.main.sync {
+                self.comicsCollection = result
                 self.comicsLoadMore = true
                 self.comicsCollectionView.dataSource = self.dataSource
-//                self.comicsCollectionView.reloadData()
+                self.comicsCollectionView.reloadData()
             }
         })
     }
@@ -174,27 +159,5 @@ class CharacterDetailViewController: UITableViewController {
             UIApplication.shared.open(NSURL(string:"http://www.marvel.com/") as! URL, options: [:], completionHandler: nil)
         }
     }
-    
-//    func numberOfItems(collectionView: UICollectionView) -> Int {
-//        var numberOfItems = 1
-//        
-//        switch collectionView {
-//        case self.comicsCollectionView:
-//            if self.comicsCollection != nil {
-//                if self.comicsCollection.count! != 0 {
-//                    numberOfItems = self.comicsCollection.items!.count
-//                    
-//                    if !(self.comicsCollection.items!.count >= self.comicsCollection.total!) {
-//                        numberOfItems += 1
-//                    }
-//                }
-//            }
-//            break
-//        default:
-//            break
-//        }
-//        
-//        return numberOfItems
-//    }
     
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 class FlatArrayDataManager<T> : DataManager {
-    typealias T = DataManager.Element
+    typealias T = DataManager.DataType
     private var data: [T]
     
     init(data: [T]) {
